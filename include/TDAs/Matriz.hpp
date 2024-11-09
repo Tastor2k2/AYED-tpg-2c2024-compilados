@@ -165,7 +165,7 @@ void Matriz<T>::redimensionar(size_t filas, size_t columnas) {
     for (size_t i = 0; i < filas; i++) {
         for (size_t j = 0; j < columnas; j++) {
             try {
-                aux[i * columnas + j] = this(i, j);
+                aux[i * columnas + j] = (*this)(i, j);
             } catch (ExcepcionMatriz& _) {
                 aux[i * columnas + j] = T();
             }

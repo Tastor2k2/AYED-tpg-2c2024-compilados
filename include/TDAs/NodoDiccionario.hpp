@@ -22,7 +22,7 @@ public:
 
     void cambiar_clave(Clave clave);
 
-    T obtener_dato();
+    T& obtener_dato();
 
     void cambiar_dato(T dato);
 
@@ -69,7 +69,7 @@ void NodoDiccionario<Clave, T>::cambiar_clave(Clave clave) {
 }
 
 template<typename Clave, typename T>
-T NodoDiccionario<Clave, T>::obtener_dato() {
+T& NodoDiccionario<Clave, T>::obtener_dato() {
     return dato;
 }
 

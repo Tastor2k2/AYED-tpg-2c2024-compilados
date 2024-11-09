@@ -48,15 +48,15 @@ TEST_F(DiccionarioTest, RecorridoInorder) {
 }
 
 TEST_F(DiccionarioTest, RecorridoPreorder) {
-    probar_igualdad_vector(diccionario.inorder(), {10, 7, 3, 13, 11, 16});
+    probar_igualdad_vector(diccionario.preorder(), {10, 7, 3, 13, 11, 16});
 }
 
 TEST_F(DiccionarioTest, RecorridoPostorder) {
-    probar_igualdad_vector(diccionario.inorder(), {3, 7, 11, 16, 13, 10});
+    probar_igualdad_vector(diccionario.postorder(), {3, 7, 11, 16, 13, 10});
 }
 
 TEST_F(DiccionarioTest, RecorridoEnAncho) {
-    probar_igualdad_vector(diccionario.inorder(), {10, 7, 13, 3, 11, 16});
+    probar_igualdad_vector(diccionario.ancho(), {10, 7, 13, 3, 11, 16});
 }
 
 TEST_F(DiccionarioTest, Tamanio) {

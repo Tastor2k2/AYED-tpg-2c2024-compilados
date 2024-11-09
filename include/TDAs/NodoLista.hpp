@@ -15,7 +15,7 @@ public:
     NodoLista(T dato, NodoLista* anterior, NodoLista* siguiente);
 
     // Getters y setters.
-    T obtener_dato();
+    T& obtener_dato();
 
     void cambiar_dato(T dato);
 
@@ -43,7 +43,7 @@ NodoLista<T>::NodoLista(T dato, NodoLista* anterior, NodoLista* siguiente) {
 }
 
 template<typename T>
-T NodoLista<T>::obtener_dato() {
+T& NodoLista<T>::obtener_dato() {
     return dato;
 }
 
