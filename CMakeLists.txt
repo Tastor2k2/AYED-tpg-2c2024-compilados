@@ -37,6 +37,9 @@ set(ARCHIVOS_FUENTE
         src/FusionadorEnergon.cpp
         src/Cristal.cpp
         src/BovedaCristales.cpp
+        src/MensajeManager.cpp
+        src/ChatManager.cpp
+        src/BovedaManager.cpp
 )
 
 add_executable(AYED_TPG_2C2024
