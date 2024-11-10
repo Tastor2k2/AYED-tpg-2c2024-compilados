@@ -61,9 +61,9 @@ Pila<T>::Pila() {
 
 template<typename T>
 void Pila<T>::alta(T dato) {
-    NodoLista<T>* nuevo = new NodoLista<T>(dato);
-    nuevo->cambiar_siguiente(ultimo_nodo); 
-    ultimo_nodo = nuevo; 
+    NodoLista<T>* nuevo_nodo = new NodoLista<T>(dato);
+    nuevo_nodo->cambiar_siguiente(ultimo_nodo); 
+    ultimo_nodo = nuevo_nodo; 
     cantidad_datos++;
 }
 
@@ -72,11 +72,11 @@ T Pila<T>::baja() {
     if (vacio()) {
         throw ExcepcionPila("La pila está vacía, no hay elementos para borrar.");
     }
-    NodoLista<T>* borrar = ultimo_nodo;
+    NodoLista<T>* borrar_nodo = ultimo_nodo;
     ultimo_nodo = ultimo_nodo->obtener_siguiente();
-    T dato = borrar->obtener_dato();  
-    delete borrar;
-    cantidad_datos--;
+    T dato = borrar_nodo->obtener_dato();  
+    delete borrar_nodo;
+   cantidad_datos-- ;
     return dato;
 }
 
@@ -99,8 +99,9 @@ bool Pila<T>::vacio() {
 }
 
 template<typename T>
-Pila<T>::~Pila() {
-    while (!vacio()) {
+Pila<T>::~Pila() {  
+    const int CANTIDAD_ELEMENTOS_A_ELIMINAR = cantidad_datos;  
+    for (size_t i = 0 ; i < CANTIDAD_ELEMENTOS_A_ELIMINAR ; i++) {
         baja();
     }
 }
