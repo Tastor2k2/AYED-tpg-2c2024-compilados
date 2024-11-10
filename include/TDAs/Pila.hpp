@@ -100,7 +100,7 @@ bool Pila<T>::vacio() {
 
 template<typename T>
 Pila<T>::~Pila() {  
-    const int CANTIDAD_ELEMENTOS_A_ELIMINAR = cantidad_datos;  
+    const size_t CANTIDAD_ELEMENTOS_A_ELIMINAR = cantidad_datos;  
     for (size_t i = 0 ; i < CANTIDAD_ELEMENTOS_A_ELIMINAR ; i++) {
         baja();
     }
