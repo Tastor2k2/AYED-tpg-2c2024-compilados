@@ -56,30 +56,53 @@ public:
 
 template<typename T>
 Pila<T>::Pila() {
+    ultimo_nodo = nullptr;
 }
 
 template<typename T>
 void Pila<T>::alta(T dato) {
+    NodoLista<T>* nuevo_nodo = new NodoLista<T>(dato);
+    nuevo_nodo->cambiar_siguiente(ultimo_nodo); 
+    ultimo_nodo = nuevo_nodo; 
+    cantidad_datos++;
 }
 
 template<typename T>
 T Pila<T>::baja() {
+    if (vacio()) {
+        throw ExcepcionPila("La pila está vacía, no hay elementos para borrar.");
+    }
+    NodoLista<T>* borrar_nodo = ultimo_nodo;
+    ultimo_nodo = ultimo_nodo->obtener_siguiente();
+    T dato = borrar_nodo->obtener_dato();  
+    delete borrar_nodo;
+   cantidad_datos-- ;
+    return dato;
 }
 
 template<typename T>
 T Pila<T>::primero() {
+    if (vacio()) {
+        throw ExcepcionPila("La pila está vacía.");
+    }
+    return ultimo_nodo->obtener_dato(); 
 }
-
+   
 template<typename T>
 size_t Pila<T>::tamanio() {
+    return cantidad_datos;
 }
 
 template<typename T>
 bool Pila<T>::vacio() {
+    return (cantidad_datos == 0);
 }
 
 template<typename T>
-Pila<T>::~Pila() {
+Pila<T>::~Pila() {  
+    while (!vacio()){
+        baja();
+    }
 }
 
 #endif
