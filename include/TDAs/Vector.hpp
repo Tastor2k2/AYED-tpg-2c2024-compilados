@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <string>
 
 class ExcepcionVector : public std::runtime_error
 {
