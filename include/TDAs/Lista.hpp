@@ -113,13 +113,14 @@ template<typename T>
 void Lista<T>::alta_principio(T dato) {
     NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
     if (vacio()) {
+        primer_nodo = nuevo_elemento;
         ultimo_nodo = nuevo_elemento;
+        cursor = primer_nodo;
     } else {
         nuevo_elemento->cambiar_siguiente(primer_nodo);
         primer_nodo->cambiar_anterior(nuevo_elemento);
+        primer_nodo = nuevo_elemento;
     }
-    primer_nodo = nuevo_elemento;
-    cursor = primer_nodo;
     cantidad_datos++;
 }
 
@@ -128,19 +129,20 @@ void Lista<T>::alta_final(T dato) {
     NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
     if (vacio()) {
         primer_nodo = nuevo_elemento;
+        ultimo_nodo = nuevo_elemento;
+        cursor = ultimo_nodo;
     } else {
         nuevo_elemento->cambiar_anterior(ultimo_nodo);
         ultimo_nodo->cambiar_siguiente(nuevo_elemento);
+        ultimo_nodo = nuevo_elemento;
     }
-    ultimo_nodo = nuevo_elemento;
-    cursor = ultimo_nodo;
     cantidad_datos++;
 }
 
 template<typename T>
 T Lista<T>::baja_primero() {
     if (vacio()) {
-        throw ExcepcionLista("No se pueden quitar elementos de una lista vacia.");
+        throw ExcepcionLista("No se puede quitar el primer elemento de una lista vacia.");
     }
     NodoLista<T>* nodo_a_quitar = primer_nodo;
     T dato = nodo_a_quitar->obtener_dato();
@@ -151,7 +153,6 @@ T Lista<T>::baja_primero() {
     } else {
         primer_nodo = primer_nodo->obtener_siguiente();
         primer_nodo->cambiar_anterior(nullptr);
-        cursor = primer_nodo;
     }
     delete nodo_a_quitar;
     cantidad_datos--;
@@ -172,7 +173,6 @@ T Lista<T>::baja_ultimo() {
     } else {
         ultimo_nodo = ultimo_nodo->obtener_anterior();
         ultimo_nodo->cambiar_siguiente(nullptr);
-        cursor = ultimo_nodo;
     }
     delete nodo_a_quitar;
     cantidad_datos--;
@@ -216,41 +216,37 @@ void Lista<T>::insertar(T dato, size_t posicion) {
 
 template<typename T>
 T Lista<T>::eliminar(size_t posicion) {
-    if (posicion > tamanio() - 1) {
-        throw ExcepcionLista("Error al eliminar. La posicion debe ser menor o igual al tamanio de la lista.");
+    if (vacio()) {
+        throw ExcepcionLista("La lista está vacía.");
     }
-
-    T dato;
-    if (posicion == 0) {
-        dato = baja_primero();
-    } else if (posicion == tamanio()) {
-        dato = baja_ultimo();
+    if (posicion >= tamanio()) {
+        throw ExcepcionLista("Posición fuera de rango.");
+    }
+    if (cursor == nullptr || posicion <= tamanio() / 2) {
+        reiniciar_cursor(true);
+        for (size_t i = 0; i < posicion; i++) {
+            avanzar();
+        }
     } else {
-        if (cursor == nullptr || posicion <= tamanio() / 2) {
-            reiniciar_cursor(true);
-            for (size_t i = 0; i < posicion; i++) {
-                avanzar();
-            }
-        } else {
-            reiniciar_cursor(false);
-            for (size_t i = tamanio() - 1; i > posicion; i--) {
-                retroceder();
-            }
+        reiniciar_cursor(false);
+        for (size_t i = tamanio() - 1; i > posicion; i--) {
+            retroceder();
         }
-        NodoLista<T>* nodo_a_quitar = cursor;
-        dato = nodo_a_quitar->obtener_dato();
-        NodoLista<T>* anterior = nodo_a_quitar->obtener_anterior();
-        NodoLista<T>* siguiente = nodo_a_quitar->obtener_siguiente();
-        if (anterior != nullptr) {
-            anterior->cambiar_siguiente(siguiente);
-        }
-        if (siguiente != nullptr) {
-            siguiente->cambiar_anterior(anterior);
-        }
-
-        cursor = anterior;
-        delete nodo_a_quitar;
     }
+    T dato = cursor->obtener_dato();
+    NodoLista<T>* nodo_a_eliminar = cursor;
+    if (cursor->obtener_anterior()) {
+        cursor->obtener_anterior()->cambiar_siguiente(cursor->obtener_siguiente());
+    } else {
+        primer_nodo = cursor->obtener_siguiente();
+    }
+    if (cursor->obtener_siguiente()) {
+        cursor->obtener_siguiente()->cambiar_anterior(cursor->obtener_anterior());
+    } else {
+        ultimo_nodo = cursor->obtener_anterior();
+    }
+    cursor = cursor->obtener_siguiente();
+    delete nodo_a_eliminar;
     cantidad_datos--;
     return dato;
 }
