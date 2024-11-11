@@ -142,7 +142,7 @@ void Lista<T>::alta_final(T dato) {
 template<typename T>
 T Lista<T>::baja_primero() {
     if (vacio()) {
-        throw ExcepcionLista("No se puede quitar el primer elemento de una lista vacia.");
+        throw ExcepcionLista("La lista esta vacia.");
     }
     NodoLista<T>* nodo_a_quitar = primer_nodo;
     T dato = nodo_a_quitar->obtener_dato();
@@ -162,7 +162,7 @@ T Lista<T>::baja_primero() {
 template<typename T>
 T Lista<T>::baja_ultimo() {
     if (vacio()) {
-        throw ExcepcionLista("No se pueden quitar elementos de una lista vacia.");
+        throw ExcepcionLista("La lista esta vacia.");
     }
     NodoLista<T>* nodo_a_quitar = ultimo_nodo;
     T dato = nodo_a_quitar->obtener_dato();
@@ -182,7 +182,7 @@ T Lista<T>::baja_ultimo() {
 template<typename T>
 void Lista<T>::insertar(T dato, size_t posicion) {
     if (posicion > tamanio()) {
-        throw ExcepcionLista("Error al insertar. La posicion debe ser menor o igual al tamanio de la lista.");
+        throw ExcepcionLista("Posición fuera de rango.");
     }
     if (posicion == 0) {
         alta_principio(dato);
@@ -254,7 +254,7 @@ T Lista<T>::eliminar(size_t posicion) {
 template<typename T>
 T& Lista<T>::primero() {
     if (vacio()) {
-        throw ExcepcionLista("La lista está vacía.");
+        throw ExcepcionLista("La lista está vacía, no tiene primer elemento.");
     }
     return primer_nodo->obtener_dato();
 }
@@ -262,7 +262,7 @@ T& Lista<T>::primero() {
 template<typename T>
 T& Lista<T>::ultimo() {
     if (vacio()) {
-        throw ExcepcionLista("La lista está vacía.");
+        throw ExcepcionLista("La lista está vacía, no tiene ultimo elemento.");
     }
     return ultimo_nodo->obtener_dato();
 }
@@ -279,7 +279,7 @@ void Lista<T>::reiniciar_cursor(bool principio) {
 template<typename T>
 void Lista<T>::avanzar() {
     if (cursor == nullptr) {
-        throw ExcepcionLista("El cursor está fuera de los límites de la lista.");
+        throw ExcepcionLista("No es posible avanzar, limite alcanzado.");
     }
     if (cursor != ultimo_nodo) {
         cursor = cursor->obtener_siguiente();
@@ -289,7 +289,7 @@ void Lista<T>::avanzar() {
 template<typename T>
 void Lista<T>::retroceder() {
     if (cursor == nullptr) {
-        throw ExcepcionLista("El cursor está fuera de los límites de la lista.");
+        throw ExcepcionLista("No es posible retroceder, limite alcanzado.");
     } if (cursor != primer_nodo) {
         cursor = cursor->obtener_anterior();
     }
@@ -298,7 +298,7 @@ void Lista<T>::retroceder() {
 template<typename T>
 T& Lista<T>::elemento() {
     if (cursor == nullptr) {
-        throw ExcepcionLista("El cursor supera los limites de la lista");
+        throw ExcepcionLista("Cursor fuera de los limites de la lista");
     }
     return cursor->obtener_dato();
 }
