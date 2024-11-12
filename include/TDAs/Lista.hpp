@@ -79,6 +79,10 @@ public:
     // Post: Retrocede el cursor al nodo anterior del actual.
     void retroceder();
 
+    // Pre: -
+    // Post: Ubica el cursor según la posicion recibida por parametro.
+    void ubicar_cursor(size_t posicion, size_t posicion_maxima);
+
     // Pre: El cursor debe apuntar a un nodo válido.
     // Post: Devuelve una referencia al dato actual (cursor).
     T& elemento();
@@ -181,25 +185,16 @@ T Lista<T>::baja_ultimo() {
 
 template<typename T>
 void Lista<T>::insertar(T dato, size_t posicion) {
+    size_t posicion_maxima = tamanio() - 1;
     if (posicion > tamanio()) {
         throw ExcepcionLista("Posición fuera de rango.");
     }
     if (posicion == 0) {
         alta_principio(dato);
-    } else if (posicion == tamanio() - 1) {
+    } else if (posicion == posicion_maxima) {
         alta_final(dato);
     } else {
-        if (cursor == nullptr || posicion <= tamanio() / 2) {
-            reiniciar_cursor(true);
-            for (size_t i = 0; i < posicion; i++) {
-                avanzar();
-            }
-        } else {
-            reiniciar_cursor(false);
-            for (size_t i = tamanio() - 1; i > posicion; i--) {
-                retroceder();
-            }
-        }
+        ubicar_cursor(posicion, posicion_maxima);
         NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
         NodoLista<T>* siguiente = cursor;
         NodoLista<T>* anterior = cursor->obtener_anterior();
@@ -216,23 +211,14 @@ void Lista<T>::insertar(T dato, size_t posicion) {
 
 template<typename T>
 T Lista<T>::eliminar(size_t posicion) {
+    size_t posicion_maxima = tamanio() - 1;
     if (vacio()) {
         throw ExcepcionLista("La lista está vacía.");
     }
     if (posicion >= tamanio()) {
         throw ExcepcionLista("Posición fuera de rango.");
     }
-    if (cursor == nullptr || posicion <= tamanio() / 2) {
-        reiniciar_cursor(true);
-        for (size_t i = 0; i < posicion; i++) {
-            avanzar();
-        }
-    } else {
-        reiniciar_cursor(false);
-        for (size_t i = tamanio() - 1; i > posicion; i--) {
-            retroceder();
-        }
-    }
+    ubicar_cursor(posicion, posicion_maxima);
     T dato = cursor->obtener_dato();
     NodoLista<T>* nodo_a_eliminar = cursor;
     if (cursor->obtener_anterior()) {
@@ -296,9 +282,26 @@ void Lista<T>::retroceder() {
 }
 
 template<typename T>
+void Lista<T>::ubicar_cursor(size_t posicion, size_t posicion_maxima) {
+    size_t mitad_tamanio = tamanio() / 2;
+    if (cursor == nullptr || posicion <= mitad_tamanio) {
+        reiniciar_cursor(true);
+        for (size_t i = 0; i < posicion; i++) {
+            avanzar();
+        }
+    } else {
+        reiniciar_cursor(false);
+        for (size_t i = posicion_maxima; i > posicion; i--) {
+            retroceder();
+        }
+    }
+}
+
+
+template<typename T>
 T& Lista<T>::elemento() {
     if (cursor == nullptr) {
-        throw ExcepcionLista("Cursor fuera de los limites de la lista");
+        throw ExcepcionLista("Cursor fuera de los limites de la lista.");
     }
     return cursor->obtener_dato();
 }
