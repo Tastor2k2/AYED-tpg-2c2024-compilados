@@ -57,30 +57,64 @@ public:
 
 template<typename T>
 Cola<T>::Cola() {
+    primer_nodo = nullptr;
+    ultimo_nodo = nullptr;
+    cantidad_datos = 0;
 }
 
 template<typename T>
 void Cola<T>::alta(T dato) {
+    NodoLista<T>* nuevo_nodo = new NodoLista<T>(dato);
+
+    if (vacio()) {
+        primer_nodo = nuevo_nodo;
+        ultimo_nodo = nuevo_nodo;
+    } else {
+        ultimo_nodo->cambiar_siguiente(nuevo_nodo);
+        ultimo_nodo = nuevo_nodo;
+    }
+    cantidad_datos++;
 }
 
 template<typename T>
 T Cola<T>::baja() {
+    if (vacio()) {
+        throw ExcepcionCola("La cola está vacía");
+    }
+    T dato = primer_nodo->obtener_dato();
+    NodoLista<T>* borrar_nodo = primer_nodo;
+    primer_nodo = primer_nodo->obtener_siguiente();
+    if (primer_nodo == nullptr) {
+        ultimo_nodo = nullptr;
+    }
+    delete borrar_nodo;
+    cantidad_datos--;
+    return dato;
 }
 
 template<typename T>
 T Cola<T>::primero() {
+    if (vacio()) {
+        throw ExcepcionCola("La cola esta vacía");
+    }
+    return primer_nodo->obtener_dato();
 }
 
 template<typename T>
 size_t Cola<T>::tamanio() {
+    return cantidad_datos;
 }
 
 template<typename T>
 bool Cola<T>::vacio() {
+    return cantidad_datos == 0;
 }
 
 template<typename T>
 Cola<T>::~Cola() {
+    while (!vacio()) {
+        baja();
+    }
 }
 
 #endif
