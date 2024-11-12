@@ -23,6 +23,10 @@ private:
     NodoLista<T>* cursor;
     size_t cantidad_datos;
 
+    // Pre: -
+    // Post: Ubica el cursor según la posicion recibida por parametro.
+    void ubicar_cursor(size_t posicion, size_t posicion_maxima);
+
 public:
     // Constructor.
     Lista();
@@ -79,10 +83,6 @@ public:
     // Post: Retrocede el cursor al nodo anterior del actual.
     void retroceder();
 
-    // Pre: -
-    // Post: Ubica el cursor según la posicion recibida por parametro.
-    void ubicar_cursor(size_t posicion, size_t posicion_maxima);
-
     // Pre: El cursor debe apuntar a un nodo válido.
     // Post: Devuelve una referencia al dato actual (cursor).
     T& elemento();
@@ -124,6 +124,7 @@ void Lista<T>::alta_principio(T dato) {
         nuevo_elemento->cambiar_siguiente(primer_nodo);
         primer_nodo->cambiar_anterior(nuevo_elemento);
         primer_nodo = nuevo_elemento;
+        reiniciar_cursor(true);
     }
     cantidad_datos++;
 }
@@ -139,6 +140,7 @@ void Lista<T>::alta_final(T dato) {
         nuevo_elemento->cambiar_anterior(ultimo_nodo);
         ultimo_nodo->cambiar_siguiente(nuevo_elemento);
         ultimo_nodo = nuevo_elemento;
+        reiniciar_cursor(false);
     }
     cantidad_datos++;
 }
@@ -155,7 +157,9 @@ T Lista<T>::baja_primero() {
         ultimo_nodo = nullptr;
         cursor = nullptr;
     } else {
-        primer_nodo = primer_nodo->obtener_siguiente();
+        cursor = primer_nodo->obtener_siguiente();
+        primer_nodo->cambiar_siguiente(nullptr);
+        primer_nodo = cursor;
         primer_nodo->cambiar_anterior(nullptr);
     }
     delete nodo_a_quitar;
@@ -175,7 +179,9 @@ T Lista<T>::baja_ultimo() {
         ultimo_nodo = nullptr;
         cursor = nullptr;
     } else {
-        ultimo_nodo = ultimo_nodo->obtener_anterior();
+        cursor = ultimo_nodo->obtener_anterior();
+        ultimo_nodo->cambiar_anterior(nullptr);
+        ultimo_nodo = cursor;
         ultimo_nodo->cambiar_siguiente(nullptr);
     }
     delete nodo_a_quitar;
@@ -196,14 +202,10 @@ void Lista<T>::insertar(T dato, size_t posicion) {
     } else {
         ubicar_cursor(posicion, posicion_maxima);
         NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
-        NodoLista<T>* siguiente = cursor;
         NodoLista<T>* anterior = cursor->obtener_anterior();
-        anterior->cambiar_siguiente(nuevo_elemento);
         nuevo_elemento->cambiar_anterior(anterior);
-        nuevo_elemento->cambiar_siguiente(siguiente);
-        if (siguiente != nullptr) {
-            siguiente->cambiar_anterior(nuevo_elemento);
-        }
+        nuevo_elemento->cambiar_siguiente(cursor);
+        anterior->cambiar_siguiente(nuevo_elemento);
         cursor = nuevo_elemento;
     }
     cantidad_datos++;
@@ -215,24 +217,22 @@ T Lista<T>::eliminar(size_t posicion) {
     if (vacio()) {
         throw ExcepcionLista("La lista está vacía.");
     }
-    if (posicion >= tamanio()) {
+    if (posicion > posicion_maxima) {
         throw ExcepcionLista("Posición fuera de rango.");
+    }
+    if (posicion == 0) {
+        return baja_primero();
+    }
+    if (posicion == posicion_maxima) {
+        return baja_ultimo();
     }
     ubicar_cursor(posicion, posicion_maxima);
     T dato = cursor->obtener_dato();
-    NodoLista<T>* nodo_a_eliminar = cursor;
-    if (cursor->obtener_anterior()) {
-        cursor->obtener_anterior()->cambiar_siguiente(cursor->obtener_siguiente());
-    } else {
-        primer_nodo = cursor->obtener_siguiente();
-    }
-    if (cursor->obtener_siguiente()) {
-        cursor->obtener_siguiente()->cambiar_anterior(cursor->obtener_anterior());
-    } else {
-        ultimo_nodo = cursor->obtener_anterior();
-    }
+    NodoLista<T>* nodo_a_quitar = cursor;
+    cursor->obtener_anterior()->cambiar_siguiente(cursor->obtener_siguiente());
+    cursor->obtener_siguiente()->cambiar_anterior(cursor->obtener_anterior());
     cursor = cursor->obtener_siguiente();
-    delete nodo_a_eliminar;
+    delete nodo_a_quitar;
     cantidad_datos--;
     return dato;
 }
@@ -283,7 +283,7 @@ void Lista<T>::retroceder() {
 
 template<typename T>
 void Lista<T>::ubicar_cursor(size_t posicion, size_t posicion_maxima) {
-    size_t mitad_tamanio = posicion_maxima / 2;
+    size_t mitad_tamanio = (posicion_maxima / 2);
     if (cursor == nullptr || posicion <= mitad_tamanio) {
         reiniciar_cursor(true);
         for (size_t i = 0; i < posicion; i++) {
@@ -296,7 +296,6 @@ void Lista<T>::ubicar_cursor(size_t posicion, size_t posicion_maxima) {
         }
     }
 }
-
 
 template<typename T>
 T& Lista<T>::elemento() {
@@ -318,12 +317,8 @@ bool Lista<T>::vacio() {
 
 template<typename T>
 Lista<T>::~Lista() {
-    NodoLista<T>* actual = primer_nodo;
-    NodoLista<T>* siguiente;
-    while (actual != nullptr) {
-        siguiente = actual->obtener_siguiente();
-        delete actual;
-        actual = siguiente;
+    while (cursor != nullptr) {
+        baja_primero();
     }
 }
 
