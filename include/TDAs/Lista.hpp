@@ -119,7 +119,7 @@ void Lista<T>::alta_principio(T dato) {
     if (vacio()) {
         primer_nodo = nuevo_elemento;
         ultimo_nodo = nuevo_elemento;
-        cursor = primer_nodo;
+        reiniciar_cursor(true);
     } else {
         nuevo_elemento->cambiar_siguiente(primer_nodo);
         primer_nodo->cambiar_anterior(nuevo_elemento);
@@ -134,7 +134,7 @@ void Lista<T>::alta_final(T dato) {
     if (vacio()) {
         primer_nodo = nuevo_elemento;
         ultimo_nodo = nuevo_elemento;
-        cursor = ultimo_nodo;
+        reiniciar_cursor(false);
     } else {
         nuevo_elemento->cambiar_anterior(ultimo_nodo);
         ultimo_nodo->cambiar_siguiente(nuevo_elemento);
@@ -283,7 +283,7 @@ void Lista<T>::retroceder() {
 
 template<typename T>
 void Lista<T>::ubicar_cursor(size_t posicion, size_t posicion_maxima) {
-    size_t mitad_tamanio = tamanio() / 2;
+    size_t mitad_tamanio = posicion_maxima / 2;
     if (cursor == nullptr || posicion <= mitad_tamanio) {
         reiniciar_cursor(true);
         for (size_t i = 0; i < posicion; i++) {
