@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <string>
 
 class ExcepcionMatriz : public std::runtime_error {
 public:

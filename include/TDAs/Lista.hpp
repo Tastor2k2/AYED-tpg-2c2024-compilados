@@ -23,6 +23,10 @@ private:
     NodoLista<T>* cursor;
     size_t cantidad_datos;
 
+    // Pre: -
+    // Post: Ubica el cursor según la posicion recibida por parametro.
+    void ubicar_cursor(size_t posicion, size_t posicion_maxima);
+
 public:
     // Constructor.
     Lista();
@@ -103,66 +107,219 @@ public:
 
 template<typename T>
 Lista<T>::Lista() {
+    primer_nodo = nullptr;
+    ultimo_nodo = nullptr;
+    cursor = nullptr;
+    cantidad_datos = 0;
 }
 
 template<typename T>
 void Lista<T>::alta_principio(T dato) {
+    NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
+    if (vacio()) {
+        primer_nodo = nuevo_elemento;
+        ultimo_nodo = nuevo_elemento;
+        reiniciar_cursor(true);
+    } else {
+        nuevo_elemento->cambiar_siguiente(primer_nodo);
+        primer_nodo->cambiar_anterior(nuevo_elemento);
+        primer_nodo = nuevo_elemento;
+        reiniciar_cursor(true);
+    }
+    cantidad_datos++;
 }
 
 template<typename T>
 void Lista<T>::alta_final(T dato) {
+    NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
+    if (vacio()) {
+        primer_nodo = nuevo_elemento;
+        ultimo_nodo = nuevo_elemento;
+        reiniciar_cursor(false);
+    } else {
+        nuevo_elemento->cambiar_anterior(ultimo_nodo);
+        ultimo_nodo->cambiar_siguiente(nuevo_elemento);
+        ultimo_nodo = nuevo_elemento;
+        reiniciar_cursor(false);
+    }
+    cantidad_datos++;
 }
 
 template<typename T>
 T Lista<T>::baja_primero() {
+    if (vacio()) {
+        throw ExcepcionLista("La lista esta vacia.");
+    }
+    NodoLista<T>* nodo_a_quitar = primer_nodo;
+    T dato = nodo_a_quitar->obtener_dato();
+    if (primer_nodo == ultimo_nodo) {
+        primer_nodo = nullptr;
+        ultimo_nodo = nullptr;
+        cursor = nullptr;
+    } else {
+        cursor = primer_nodo->obtener_siguiente();
+        primer_nodo->cambiar_siguiente(nullptr);
+        primer_nodo = cursor;
+        primer_nodo->cambiar_anterior(nullptr);
+    }
+    delete nodo_a_quitar;
+    cantidad_datos--;
+    return dato;
 }
 
 template<typename T>
 T Lista<T>::baja_ultimo() {
+    if (vacio()) {
+        throw ExcepcionLista("La lista esta vacia.");
+    }
+    NodoLista<T>* nodo_a_quitar = ultimo_nodo;
+    T dato = nodo_a_quitar->obtener_dato();
+    if (primer_nodo == ultimo_nodo) {
+        primer_nodo = nullptr;
+        ultimo_nodo = nullptr;
+        cursor = nullptr;
+    } else {
+        cursor = ultimo_nodo->obtener_anterior();
+        ultimo_nodo->cambiar_anterior(nullptr);
+        ultimo_nodo = cursor;
+        ultimo_nodo->cambiar_siguiente(nullptr);
+    }
+    delete nodo_a_quitar;
+    cantidad_datos--;
+    return dato;
 }
 
 template<typename T>
 void Lista<T>::insertar(T dato, size_t posicion) {
+    size_t posicion_maxima = tamanio() - 1;
+    if (posicion > tamanio()) {
+        throw ExcepcionLista("Posición fuera de rango.");
+    }
+    if (posicion == 0) {
+        alta_principio(dato);
+    } else if (posicion == posicion_maxima) {
+        alta_final(dato);
+    } else {
+        ubicar_cursor(posicion, posicion_maxima);
+        NodoLista<T>* nuevo_elemento = new NodoLista<T>(dato);
+        NodoLista<T>* anterior = cursor->obtener_anterior();
+        nuevo_elemento->cambiar_anterior(anterior);
+        nuevo_elemento->cambiar_siguiente(cursor);
+        anterior->cambiar_siguiente(nuevo_elemento);
+        cursor = nuevo_elemento;
+    }
+    cantidad_datos++;
 }
 
 template<typename T>
 T Lista<T>::eliminar(size_t posicion) {
+    size_t posicion_maxima = tamanio() - 1;
+    if (vacio()) {
+        throw ExcepcionLista("La lista está vacía.");
+    }
+    if (posicion > posicion_maxima) {
+        throw ExcepcionLista("Posición fuera de rango.");
+    }
+    if (posicion == 0) {
+        return baja_primero();
+    }
+    if (posicion == posicion_maxima) {
+        return baja_ultimo();
+    }
+    ubicar_cursor(posicion, posicion_maxima);
+    T dato = cursor->obtener_dato();
+    NodoLista<T>* nodo_a_quitar = cursor;
+    cursor->obtener_anterior()->cambiar_siguiente(cursor->obtener_siguiente());
+    cursor->obtener_siguiente()->cambiar_anterior(cursor->obtener_anterior());
+    cursor = cursor->obtener_siguiente();
+    delete nodo_a_quitar;
+    cantidad_datos--;
+    return dato;
 }
 
 template<typename T>
 T& Lista<T>::primero() {
+    if (vacio()) {
+        throw ExcepcionLista("La lista está vacía, no tiene primer elemento.");
+    }
+    return primer_nodo->obtener_dato();
 }
 
 template<typename T>
 T& Lista<T>::ultimo() {
+    if (vacio()) {
+        throw ExcepcionLista("La lista está vacía, no tiene ultimo elemento.");
+    }
+    return ultimo_nodo->obtener_dato();
 }
 
 template<typename T>
 void Lista<T>::reiniciar_cursor(bool principio) {
+    if (principio) {
+        cursor = primer_nodo;
+    } else {
+        cursor = ultimo_nodo;
+    }
 }
 
 template<typename T>
 void Lista<T>::avanzar() {
+    if (cursor == nullptr) {
+        throw ExcepcionLista("No es posible avanzar, limite alcanzado.");
+    }
+    if (cursor != ultimo_nodo) {
+        cursor = cursor->obtener_siguiente();
+    }
 }
 
 template<typename T>
 void Lista<T>::retroceder() {
+    if (cursor == nullptr) {
+        throw ExcepcionLista("No es posible retroceder, limite alcanzado.");
+    } if (cursor != primer_nodo) {
+        cursor = cursor->obtener_anterior();
+    }
+}
+
+template<typename T>
+void Lista<T>::ubicar_cursor(size_t posicion, size_t posicion_maxima) {
+    size_t mitad_tamanio = (posicion_maxima / 2);
+    if (cursor == nullptr || posicion <= mitad_tamanio) {
+        reiniciar_cursor(true);
+        for (size_t i = 0; i < posicion; i++) {
+            avanzar();
+        }
+    } else {
+        reiniciar_cursor(false);
+        for (size_t i = posicion_maxima; i > posicion; i--) {
+            retroceder();
+        }
+    }
 }
 
 template<typename T>
 T& Lista<T>::elemento() {
+    if (cursor == nullptr) {
+        throw ExcepcionLista("Cursor fuera de los limites de la lista.");
+    }
+    return cursor->obtener_dato();
 }
 
 template<typename T>
 size_t Lista<T>::tamanio() {
+    return cantidad_datos;
 }
 
 template<typename T>
 bool Lista<T>::vacio() {
+    return cantidad_datos == 0;
 }
 
 template<typename T>
 Lista<T>::~Lista() {
+    while (cursor != nullptr) {
+        baja_primero();
+    }
 }
 
 #endif
