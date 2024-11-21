@@ -5,7 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <fstream>
-#include "Vector.hpp"
 
 class ExcepcionTransformer : public std::runtime_error {
     // Excepcion para errores dentro de la clase transformer.
