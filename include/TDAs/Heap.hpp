@@ -21,8 +21,13 @@ private:
     Vector<T> datos;
     bool es_maxima;
 
+    //PRE: El indice debe ser válido.
+    //POST: El elemento en la posición indice se mueve hacia arriba hasta cumplir
+    //       con la condición del heap (de máxima o mínima).
     void ordenar_hacia_arriba(size_t indice);
-
+    //PRE: El indice debe ser válido.
+    //POST: El elemento en la posición indice se mueve hacia abajo hasta cumplir
+    //       con la condición del heap (de máxima o mínima).
     void ordenar_hacia_abajo(size_t indice);
 
 public:
