@@ -75,7 +75,8 @@ Heap<T>::Heap(bool maxima) {
 template<typename T>
 void Heap<T>::alta(T dato) {
     datos.alta(dato);
-    ordenar_hacia_arriba(datos.tamanio() - 1);
+    size_t posicion_maxima = datos.tamanio() - 1;
+    ordenar_hacia_arriba(posicion_maxima);
 }
 
 template<typename T>
@@ -129,23 +130,32 @@ void Heap<T>::ordenar_hacia_arriba(size_t indice) {
 
 template<typename T>
 void Heap<T>::ordenar_hacia_abajo(size_t indice) {
-    size_t hijo_izq = 2 * indice + 1;
-    size_t hijo_der = 2 * indice + 2;
-    size_t hijo_prometedor = indice;
+    size_t indice_hijo_izq = 2 * indice + 1;
+    size_t indice_hijo_der = 2 * indice + 2;
+    size_t indice_hijo_prometedor = indice;
 
-    if (hijo_izq < datos.tamanio() && (es_maxima ? datos[hijo_izq] > datos[hijo_prometedor] : datos[hijo_izq] < datos[hijo_prometedor])) {
-        hijo_prometedor = hijo_izq;
+    if (indice_hijo_izq < datos.tamanio()) {
+        if (es_maxima && datos[indice_hijo_izq] > datos[indice_hijo_prometedor]) {
+            indice_hijo_prometedor = indice_hijo_izq;
+        } else if (!es_maxima && datos[indice_hijo_izq] < datos[indice_hijo_prometedor]) {
+            indice_hijo_prometedor = indice_hijo_izq;
+        }
     }
 
-    if (hijo_der < datos.tamanio() && (es_maxima ? datos[hijo_der] > datos[hijo_prometedor] : datos[hijo_der] < datos[hijo_prometedor])) {
-        hijo_prometedor = hijo_der;
+    if (indice_hijo_der < datos.tamanio()) {
+        if (es_maxima && datos[indice_hijo_der] > datos[indice_hijo_prometedor]) {
+            indice_hijo_prometedor = indice_hijo_der;
+        } else if (!es_maxima && datos[indice_hijo_der] < datos[indice_hijo_prometedor]) {
+            indice_hijo_prometedor = indice_hijo_der;
+        }
     }
 
-    if (hijo_prometedor != indice) {
+
+    if (indice_hijo_prometedor != indice) {
         T temp = datos[indice];
-        datos[indice] = datos[hijo_prometedor];
-        datos[hijo_prometedor] = temp;
-        ordenar_hacia_abajo(hijo_prometedor);
+        datos[indice] = datos[indice_hijo_prometedor];
+        datos[indice_hijo_prometedor] = temp;
+        ordenar_hacia_abajo(indice_hijo_prometedor);
     }
 }
 
