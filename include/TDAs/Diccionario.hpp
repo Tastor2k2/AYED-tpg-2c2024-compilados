@@ -188,7 +188,7 @@ NodoDiccionario<Clave, T>* Diccionario<Clave, T>::baja_recursivo(NodoDiccionario
             delete nodo;
             return temp;
         }
-        NodoDiccionario<Clave, T>* temp = inmediato_sucesor(nodo->obtener_hijo_derecho());
+        NodoDiccionario<Clave, T>* temp = inmediato_sucesor(nodo);
         nodo->cambiar_clave(temp->obtener_clave());
         nodo->cambiar_dato(temp->obtener_dato());
         nodo->cambiar_hijo_derecho(baja_recursivo(nodo->obtener_hijo_derecho(), temp->obtener_clave()));
@@ -198,10 +198,11 @@ NodoDiccionario<Clave, T>* Diccionario<Clave, T>::baja_recursivo(NodoDiccionario
 
 template<typename Clave, typename T>
 NodoDiccionario<Clave, T>* Diccionario<Clave, T>::inmediato_sucesor(NodoDiccionario<Clave, T>* nodo) {
-    while (nodo->obtener_hijo_izquierdo() != nullptr) {
-        nodo = nodo->obtener_hijo_izquierdo();
+    NodoDiccionario<Clave, T>* hijo_derecho = nodo->obtener_hijo_derecho();
+    while (hijo_derecho->obtener_hijo_izquierdo() != nullptr) {
+        hijo_derecho = hijo_derecho->obtener_hijo_izquierdo();
     }
-    return nodo;
+    return hijo_derecho;
 }
 
 template<typename Clave, typename T>
