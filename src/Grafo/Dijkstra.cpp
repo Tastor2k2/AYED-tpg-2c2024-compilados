@@ -26,10 +26,10 @@ Vector<size_t> Dijkstra::calcular_camino_minimo(Matriz<bool> &matriz_adyacencia,
   Vector<size_t> camino;
   size_t nodos_procesados = 0;
   bool continuar = true;
+  size_t nodo_actual;
 
   while (nodos_procesados < vertices && continuar) {
-    size_t nodo_actual = seleccionar_nodo_minimo(vertices);
-
+    nodo_actual = seleccionar_nodo_minimo(vertices);
     if (nodo_actual == NO_ALCANZABLE) {
       continuar = false;
     } 
@@ -39,7 +39,6 @@ Vector<size_t> Dijkstra::calcular_camino_minimo(Matriz<bool> &matriz_adyacencia,
       actualizar_distancias(nodo_actual, vertices, matriz_adyacencia, matriz_pesos);
     }
   }
-
   if (distancias[destino] != INFINITO) {
     camino = construir_camino(destino, predecesores);
   }
@@ -57,10 +56,12 @@ size_t Dijkstra::seleccionar_nodo_minimo(size_t vertices) {
 }
 
 void Dijkstra::actualizar_distancias(size_t nodo_actual, size_t vertices, Matriz<bool> &matriz_adyacencia, Matriz<int> &matriz_pesos) {
+  int peso_arista;
+  int nueva_distancia;
   for (size_t vecino = 0; vecino < vertices; vecino++) {
     if (matriz_adyacencia(nodo_actual, vecino) && !visitados[vecino]) {
-      int peso_arista = matriz_pesos(nodo_actual, vecino);
-      int nueva_distancia = distancias[nodo_actual] + peso_arista;
+      peso_arista = matriz_pesos(nodo_actual, vecino);
+      nueva_distancia = distancias[nodo_actual] + peso_arista;
       if (nueva_distancia < distancias[vecino]) {
         distancias[vecino] = nueva_distancia;
         predecesores[vecino] = nodo_actual;
