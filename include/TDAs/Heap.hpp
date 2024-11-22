@@ -81,12 +81,13 @@ void Heap<T>::alta(T dato) {
 
 template<typename T>
 T Heap<T>::baja() {
+    size_t posicion_maxima = datos.tamanio() - 1;
     if (vacio()) {
         throw ExcepcionHeap("El heap esta vacio.");
     }
     T dato_eliminado = datos[0];
 
-    datos[0] = datos[datos.tamanio() - 1];
+    datos[0] = datos[posicion_maxima];
     datos.baja();
 
     ordenar_hacia_abajo(0);
