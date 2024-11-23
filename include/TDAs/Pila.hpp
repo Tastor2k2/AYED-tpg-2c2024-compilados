@@ -57,6 +57,7 @@ public:
 template<typename T>
 Pila<T>::Pila() {
     ultimo_nodo = nullptr;
+    cantidad_datos = 0;
 }
 
 template<typename T>
@@ -76,7 +77,7 @@ T Pila<T>::baja() {
     ultimo_nodo = ultimo_nodo->obtener_siguiente();
     T dato = borrar_nodo->obtener_dato();  
     delete borrar_nodo;
-   cantidad_datos-- ;
+    cantidad_datos--;
     return dato;
 }
 
