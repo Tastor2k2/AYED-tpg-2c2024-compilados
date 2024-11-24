@@ -50,9 +50,10 @@ private:
 
 public:
 
-    // Constructor
+    // Constructor.
     BovedaTransformers();
 
+    // Destructor.
     ~BovedaTransformers();
 
     // Pre: No se pueden almacenar transformers que tengan el mismo nombre.
