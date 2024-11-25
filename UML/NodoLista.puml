@@ -15,7 +15,7 @@ class NodoLista<T> {
     + cambiar_siguiente(siguiente: NodoLista<T>*): void
 }
 
-NodoLista "1" --> "1" NodoLista: anterior
-NodoLista "1" --> "1" NodoLista: siguiente
+NodoLista "1" --> "1" NodoLista: -anterior
+NodoLista "1" --> "1" NodoLista: -siguiente
 
 @enduml
