@@ -37,8 +37,8 @@ class NodoLista<T> {
     + cambiar_siguiente(siguiente: NodoLista<T>*): void
 }
 
-NodoLista "1" --> "1" NodoLista: anterior
-NodoLista "1" --> "1" NodoLista: siguiente
+NodoLista "1" --> "1" NodoLista: -anterior
+NodoLista "1" --> "1" NodoLista: -siguiente
 Lista "1" --> "1" NodoLista: -primer_nodo
 Lista "1" --> "1" NodoLista: -ultimo_nodo
 Lista "1" --> "1" NodoLista: -cursor
