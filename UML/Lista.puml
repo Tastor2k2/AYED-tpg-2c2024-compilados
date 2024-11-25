@@ -1,0 +1,46 @@
+@startuml
+
+class Lista<T> {
+    - cantidad_datos: size_t
+
+    - ubicar_cursor(posicion: size_t, posicion_maxima: size_t): void
+    + Lista()
+    + alta_principio(dato: T): void
+    + alta_final(dato: T): void
+    + baja_primero(): T
+    + baja_ultimo(): T
+    + insertar(dato: T, posicion: size_t): insertar
+    + eliminar(posicion: size_t): T
+    + primero(): T&
+    + ultimo(): T&
+    + reiniciar_cursor(principio: bool): void
+    + avanzar(): void
+    + retroceder(): void
+    + elemento(): T&
+    + tamanio(): size_t
+    + vacio(): bool
+    + ~Lista()
+}
+
+class NodoLista<T> {
+    - dato: T
+    - anterior: NodoLista<T>*
+    - siguiente: NodoLista<T>*
+
+    + NodoLista(dato: T)
+    + NodoLista(dato: T, anterior: NodoLista<T>*, siguiente: NodoLista<T>*)
+    + obtener_dato(): T&
+    + cambiar_dato(dato: T): void
+    + obtener_anterior(): NodoLista<T>*
+    + void cambiar_anterior(anterior: NodoLista<T>*): void
+    + obtener_siguiente(): NodoLista<T>*
+    + cambiar_siguiente(siguiente: NodoLista<T>*): void
+}
+
+NodoLista "1" --> "1" NodoLista: anterior
+NodoLista "1" --> "1" NodoLista: siguiente
+Lista "1" --> "1" NodoLista: -primer_nodo
+Lista "1" --> "1" NodoLista: -ultimo_nodo
+Lista "1" --> "1" NodoLista: -cursor
+
+@enduml

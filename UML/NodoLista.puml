@@ -1,0 +1,21 @@
+@startuml
+
+class NodoLista<T> {
+    - dato: T
+    - anterior: NodoLista<T>*
+    - siguiente: NodoLista<T>*
+
+    + NodoLista(dato: T)
+    + NodoLista(dato: T, anterior: NodoLista<T>*, siguiente: NodoLista<T>*)
+    + obtener_dato(): T&
+    + cambiar_dato(dato: T): void
+    + obtener_anterior(): NodoLista<T>*
+    + void cambiar_anterior(anterior: NodoLista<T>*): void
+    + obtener_siguiente(): NodoLista<T>*
+    + cambiar_siguiente(siguiente: NodoLista<T>*): void
+}
+
+NodoLista "1" --> "1" NodoLista: anterior
+NodoLista "1" --> "1" NodoLista: siguiente
+
+@enduml
