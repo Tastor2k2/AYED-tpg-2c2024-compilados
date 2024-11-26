@@ -1,0 +1,19 @@
+@startuml
+class CaminoMinimo{
+}
+
+
+Class Dijkstra{
+}
+
+Class FloydWarshall{
+}
+
+
+Matriz <.. CaminoMinimo
+Vector <.. CaminoMinimo
+
+CaminoMinimo --|> Dijkstra
+CaminoMinimo --|> FloydWarshall
+
+@enduml
