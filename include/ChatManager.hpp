@@ -7,6 +7,7 @@
 #include "Megatron.hpp"
 #include "BovedaCristales.hpp"
 #include "BovedaManager.hpp"
+#include "TransformersManager.hpp"
 
 class ChatManager
 {
@@ -14,6 +15,8 @@ private:
   OptimusPrime optimus;
   Megatron megatron;
   BovedaManager boveda_manager;
+  TransformersManager transformers_manager;
+
   // PRE: -
   // POST: Inicia el chat entre el Usuario y Optimus Prime.
   void iniciar_chat_optimus();
@@ -23,6 +26,9 @@ private:
   // PRE: -
   // POST: Inicia el chat administrativo de la boveda.
   void administrar_boveda();
+  // PRE: -
+  // POST: Inicia el chat administrativo de los transformers.
+  void administrar_transformers();
   // PRE: -
   // POST: Muestra las opciones de seleccion.
   void mostrar_opciones();

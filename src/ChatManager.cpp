@@ -13,7 +13,8 @@ void ChatManager::mostrar_opciones()
   std::cout << "\n5- Pedir consejo de fusion a Megatron";
   std::cout << "\n6- Cambiar intencion de Megatron";
   std::cout << "\n7- Administrar Boveda de Cristales";
-  std::cout << "\n8- Salir";
+  std::cout << "\n8- Administrar Transformers";
+  std::cout << "\n9- Salir";
   std::cout << "\n******************************";
   std::cout << "\n- ";
 }
@@ -71,6 +72,9 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     administrar_boveda();
     break;
   case 8:
+    administrar_transformers();
+    break;
+  case 9:
     continuar = false;
     break;
   default:
@@ -102,6 +106,17 @@ void ChatManager::administrar_boveda()
   while (continuar)
   {
     boveda_manager.administrar_boveda(continuar);
+  }
+}
+
+void ChatManager::administrar_transformers()
+{
+  bool continuar = true;
+
+  std::cout << "\n|Administrar Transformers|";
+  while (continuar)
+  {
+    transformers_manager.administrar_transformers(continuar);
   }
 }
 
