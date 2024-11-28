@@ -141,3 +141,13 @@ size_t BovedaTransformers::cantidad_transformers()
 {
     return transformers.tamanio();
 }
+
+Vector<Transformer> BovedaTransformers::obtener_transformers()
+{
+    return transformers;
+}
+
+void BovedaTransformers::transformar(size_t posicion)
+{
+    transformers[posicion].transformar();
+}

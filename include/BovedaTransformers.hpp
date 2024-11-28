@@ -58,8 +58,16 @@ public:
     int obtener_posicion_transformer(std::string nombre);
 
     // Pre: La posicion debe ser menor al tamanio actual de la boveda.
+    // Post: Transforma el transformer en la posicion indicada.
+    void transformar(size_t posicion);
+
+    // Pre: La posicion debe ser menor al tamanio actual de la boveda.
     // Post: Elimina y devuelve el transformer en la posicion indicada.
     Transformer eliminar_transformer(size_t posicion);
+
+    // Pre: -
+    // Post: Devuelve un vector de transformers de la boveda.
+    Vector<Transformer> obtener_transformers();
 };
 
 #endif

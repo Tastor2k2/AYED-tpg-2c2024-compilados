@@ -29,6 +29,10 @@ private:
     // POST: Busca y elimina un transformer si lo encuentra.
     void eliminar_transformer();
 
+    // PRE: -
+    // POST: Transforma un transformer si lo encuentra.
+    void transformar();
+
 public:
     // Constructor
     TransformersManager();

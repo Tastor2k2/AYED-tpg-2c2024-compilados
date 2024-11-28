@@ -11,9 +11,10 @@ void TransformersManager::mostrar_opciones_transformers()
   std::cout << "\n******************************";
   std::cout << "\nQue accion desea realizar?";
   std::cout << "\n1- Añadir trasformer";
-  std::cout << "\n2- Eliminar Transformer";
+  std::cout << "\n2- Mostrar Transformers";
   std::cout << "\n3- Buscar Transformer";
-  std::cout << "\n4- Mostrar Transformer";
+  std::cout << "\n4- Eliminar Transformer";
+  std::cout << "\n5- Transformar";
   std::cout << "\n6- Salir";
   std::cout << "\n******************************";
   std::cout << "\n- ";
@@ -130,6 +131,29 @@ void TransformersManager::buscar_transformer()
   }
 }
 
+void TransformersManager::transformar()
+{
+  boveda_transformers.mostrar_transformers();
+  std::cout << "\nTransformar Transformer";
+  std::cout << "\n--------------------------------";
+  std::cout << "\nIngrese el nombre: ";
+  std::string nombre;
+  std::cin >> nombre;
+
+  int posicion = boveda_transformers.obtener_posicion_transformer(nombre);
+
+  if (posicion == -1)
+  {
+    std::cout << "\n--------------------------------";
+    std::cout << "\nTransformer no encontrado";
+  }
+  else
+  {
+    boveda_transformers.transformar(static_cast<size_t>(posicion));
+  }
+  std::cout << "\n--------------------------------";
+}
+
 void TransformersManager::administrar_transformers(bool &continuar)
 {
   opcion = -1;
@@ -143,13 +167,16 @@ void TransformersManager::administrar_transformers(bool &continuar)
     aniadir_transformer();
     break;
   case 2:
-    eliminar_transformer();
+    boveda_transformers.mostrar_transformers();
     break;
   case 3:
     buscar_transformer();
     break;
   case 4:
-    boveda_transformers.mostrar_transformers();
+    eliminar_transformer();
+    break;
+  case 5:
+    transformar();
     break;
   case 6:
     continuar = false;

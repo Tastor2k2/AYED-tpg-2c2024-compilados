@@ -5,16 +5,15 @@ ChatManager::ChatManager() {}
 void ChatManager::mostrar_opciones()
 {
   std::cout << "\n******************************";
-  std::cout << "\nHola, ¿con quién quieres hablar?";
-  std::cout << "\n1- Optimus";
-  std::cout << "\n2- Pedir consejo de fusion a Optimus";
-  std::cout << "\n3- Cambiar animo de Optimus";
-  std::cout << "\n4- Megatron";
-  std::cout << "\n5- Pedir consejo de fusion a Megatron";
-  std::cout << "\n6- Cambiar intencion de Megatron";
-  std::cout << "\n7- Administrar Boveda de Cristales";
-  std::cout << "\n8- Administrar Transformers";
-  std::cout << "\n9- Salir";
+  std::cout << "\n|Menu Principal|";
+  std::cout << "\n1- Cambiar de personaje";
+  std::cout << "\n2- Interactuar con personaje";
+  std::cout << "\n3- Administrar Boveda de Cristales";
+  std::cout << "\n4- Administrar Transformers";
+  std::cout << "\n15- Iniciar Batalla";
+  std::cout << "\n16- Tabla de Clasificacion";
+  std::cout << "\n7- Salir";
+
   std::cout << "\n******************************";
   std::cout << "\n- ";
 }
@@ -51,30 +50,18 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   switch (opcion)
   {
   case 1:
-    iniciar_chat_optimus();
+    juego_manager.elegir_personaje();
     break;
   case 2:
-    optimus.sugerir_fusion();
+    interactuar_personaje();
     break;
   case 3:
-    cambiar_animo_optimus();
-    break;
-  case 4:
-    iniciar_chat_megatron();
-    break;
-  case 5:
-    megatron.sugerir_fusion();
-    break;
-  case 6:
-    cambiar_intencion_megatron();
-    break;
-  case 7:
     administrar_boveda();
     break;
-  case 8:
+  case 4:
     administrar_transformers();
     break;
-  case 9:
+  case 7:
     continuar = false;
     break;
   default:
@@ -92,11 +79,91 @@ void ChatManager::iniciar_chat()
   int opcion = -1;
   bool continuar = true;
 
+  juego_manager.pedir_nombre();
+
+  juego_manager.elegir_personaje();
+
   while (continuar)
   {
     selector_chat(opcion, continuar);
   }
 }
+
+// INTERACTUAR CON PERSONAJE
+
+void ChatManager::interactuar_optimus()
+{
+  int opcion = -1;
+  std::cout << "\n******************************";
+  std::cout << "\n1- Optimus";
+  std::cout << "\n2- Pedir consejo de fusion a Optimus";
+  std::cout << "\n3- Cambiar animo de Optimus";
+  std::cout << "\n******************************";
+  std::cout << "\n- ";
+  std::cin >> opcion;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  switch (opcion)
+  {
+  case 1:
+    iniciar_chat_optimus();
+    break;
+  case 2:
+    optimus.sugerir_fusion();
+    break;
+  case 3:
+    cambiar_animo_optimus();
+    break;
+  default:
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "\nOpción inválida";
+  }
+}
+
+void ChatManager::interactuar_megatron()
+{
+  int opcion = -1;
+  std::cout << "\n******************************";
+  std::cout << "\n1- Megatron";
+  std::cout << "\n2- Pedir consejo de fusion a Megatron";
+  std::cout << "\n3- Cambiar intencion de Megatron";
+  std::cout << "\n******************************";
+  std::cout << "\n- ";
+  std::cin >> opcion;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  switch (opcion)
+  {
+  case 1:
+    iniciar_chat_megatron();
+    break;
+  case 2:
+    megatron.sugerir_fusion();
+    break;
+  case 3:
+    cambiar_intencion_megatron();
+    break;
+  default:
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "\nOpción inválida";
+  }
+}
+
+void ChatManager::interactuar_personaje()
+{
+  if (juego_manager.obtener_personaje() == OPTIMUS)
+  {
+    interactuar_optimus();
+  }
+  else
+  {
+    interactuar_megatron();
+  }
+}
+
+// CRISTALES
 
 void ChatManager::administrar_boveda()
 {
@@ -105,10 +172,11 @@ void ChatManager::administrar_boveda()
   std::cout << "\n|Administrar Boveda|";
   while (continuar)
   {
-    boveda_manager.administrar_boveda(continuar);
+    juego_manager.administrar_boveda_cristales(continuar);
   }
 }
 
+// TRANSFORMERS
 void ChatManager::administrar_transformers()
 {
   bool continuar = true;
@@ -120,6 +188,7 @@ void ChatManager::administrar_transformers()
   }
 }
 
+// CHATS
 void ChatManager::iniciar_chat_optimus()
 {
   bool continuar_chat = true;
@@ -166,6 +235,7 @@ void ChatManager::iniciar_chat_megatron()
   }
 }
 
+// ANIMO / INTENCION
 void ChatManager::cambiar_animo_optimus()
 {
   int opcion;
