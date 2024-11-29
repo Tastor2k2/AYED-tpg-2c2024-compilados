@@ -1,0 +1,10 @@
+@startuml
+
+class Heap<T> {
+}
+
+class Vector<T> {
+}
+
+Heap --> Vector
+@enduml

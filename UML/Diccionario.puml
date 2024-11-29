@@ -1,0 +1,23 @@
+@startuml
+
+class Diccionario<T> {
+}
+
+class NodoDiccionario<Clave, T> {
+}
+
+class Vector<T> {
+}
+
+class Cola<T> {
+}
+
+class NodoLista<T> {
+}
+
+Diccionario --> NodoDiccionario
+Diccionario --> Vector
+Diccionario --> Cola
+Cola --> NodoLista
+
+@enduml
