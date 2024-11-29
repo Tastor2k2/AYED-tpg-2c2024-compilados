@@ -6,5 +6,5 @@ class Heap<T> {
 class Vector<T> {
 }
 
-Heap --> Vector
+Heap ..> Vector
 @enduml
