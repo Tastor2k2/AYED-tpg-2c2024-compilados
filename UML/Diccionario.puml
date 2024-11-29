@@ -3,6 +3,9 @@
 class Diccionario<T> {
 }
 
+class ExcepcionDiccionario {
+}
+
 class NodoDiccionario<Clave, T> {
 }
 
@@ -14,10 +17,11 @@ class Cola<T> {
 
 class NodoLista<T> {
 }
+ExcepcionDiccionario <.. Diccionario
+NodoDiccionario <.. Diccionario
+Vector <.. Diccionario
+Cola <.. Diccionario
+NodoLista <.. Cola
 
-Diccionario --> NodoDiccionario
-Diccionario --> Vector
-Diccionario --> Cola
-Cola --> NodoLista
 
 @enduml
