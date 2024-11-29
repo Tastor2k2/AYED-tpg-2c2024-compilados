@@ -2,6 +2,9 @@
 
 class Lista<T> {
     - cantidad_datos: size_t
+    - primer_nodo: NodoLista<T>
+    - ultimo_nodo: NodoLista<T>
+    - cursor: NodoLista<T>
 
     - ubicar_cursor(posicion: size_t, posicion_maxima: size_t): void
     + Lista()
@@ -37,10 +40,6 @@ class NodoLista<T> {
     + cambiar_siguiente(siguiente: NodoLista<T>*): void
 }
 
-NodoLista "1" --> "1" NodoLista: -anterior
-NodoLista "1" --> "1" NodoLista: -siguiente
-Lista "1" --> "1" NodoLista: -primer_nodo
-Lista "1" --> "1" NodoLista: -ultimo_nodo
-Lista "1" --> "1" NodoLista: -cursor
+NodoLista <.. Lista
 
 @enduml
