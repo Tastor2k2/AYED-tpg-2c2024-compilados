@@ -40,6 +40,10 @@ class NodoLista<T> {
     + cambiar_siguiente(siguiente: NodoLista<T>*): void
 }
 
+class ExcepcionLista {
+}
+
+Lista <.. ExcepcionLista
 NodoLista <.. Lista
 
 @enduml
