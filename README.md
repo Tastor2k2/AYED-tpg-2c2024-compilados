@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mpISVoEK)
-# AYED - TPG 2c2024 - Grupo NOMBRE
+# AYED - TPG 2c2024 - Grupo Compilados
 
 <p align="center">
    <img src="Banner.jpg" alt="TPG: La batalla final"><br>
