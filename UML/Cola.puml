@@ -1,0 +1,11 @@
+@startuml
+
+class Cola<T> {
+}
+
+class NodoLista<T> {
+}
+
+Cola ..>NodoLista
+
+@enduml
