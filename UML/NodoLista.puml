@@ -2,8 +2,8 @@
 
 class NodoLista<T> {
     - dato: T
-    - anterior: NodoLista<T>*
-    - siguiente: NodoLista<T>*
+    - anterior: NodoLista*
+    - siguiente: NodoLista*
 
     + NodoLista(dato: T)
     + NodoLista(dato: T, anterior: NodoLista<T>*, siguiente: NodoLista<T>*)
