@@ -1,0 +1,18 @@
+@startuml
+class ChatManager {
+}
+
+class Megatron {
+}
+
+class OptimusPrime {
+}
+
+class BovedaManager {
+}
+
+ChatManager ..> Megatron
+ChatManager ..> OptimusPrime
+ChatManager ..> BovedaManager
+
+@enduml

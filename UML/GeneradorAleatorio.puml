@@ -1,0 +1,10 @@
+@startuml
+
+class GeneradorAleatorio {
+}
+
+class ExcepcionPorcentajeNoValido {
+}
+
+GeneradorAleatorio ..> ExcepcionPorcentajeNoValido
+@enduml

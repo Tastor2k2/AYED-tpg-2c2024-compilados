@@ -1,0 +1,15 @@
+@startuml
+
+class BovedaManager {
+}
+
+class BovedaCristales {
+}
+
+class FusionadorEnergon {
+}
+
+BovedaManager ..> BovedaCristales
+BovedaManager ..> FusionadorEnergon
+
+@enduml
