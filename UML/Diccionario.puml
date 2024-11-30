@@ -17,7 +17,7 @@ class Cola<T> {
 
 class NodoLista<T> {
 }
-Diccionario --|> ExcepcionDiccionario
+Diccionario ..> ExcepcionDiccionario
 NodoDiccionario <.. Diccionario
 Vector <.. Diccionario
 Cola <.. Diccionario
