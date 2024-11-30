@@ -43,7 +43,7 @@ class NodoLista<T> {
 class ExcepcionLista {
 }
 
-Lista --|> ExcepcionLista
+Lista ..> ExcepcionLista
 NodoLista <.. Lista
 
 @enduml

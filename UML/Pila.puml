@@ -9,7 +9,7 @@ class ExcepcionPila{
 class NodoLista{
 }
 
-Pila <... NodoLista
-Pila <... ExcepcionPila
+Pila ...> NodoLista
+Pila ...> ExcepcionPila
 
 @enduml

@@ -1,0 +1,13 @@
+@startuml
+class MensajeManager {
+}
+
+class OptimusPrime{
+}
+
+class Megatron {
+}
+
+MensajeManager <.. OptimusPrime
+MensajeManager <.. Megatron
+@enduml

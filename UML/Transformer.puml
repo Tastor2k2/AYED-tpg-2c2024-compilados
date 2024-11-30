@@ -1,0 +1,12 @@
+@startuml
+
+class Transformer {}
+
+class ExcepcionTransformer {}
+
+class Vector {}
+
+Transformer ..> ExcepcionTransformer
+Transformer ..> Vector
+
+@enduml

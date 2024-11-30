@@ -6,6 +6,9 @@ class Cola<T> {
 class NodoLista<T> {
 }
 
-Cola <..NodoLista
+class ExcepcionCola {
+}
+Cola ..>NodoLista
+Cola ..>ExcepcionCola
 
 @enduml

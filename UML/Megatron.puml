@@ -1,0 +1,8 @@
+@startuml
+class Megatron {
+}
+class MensajeManager {
+}
+Megatron ..> MensajeManager
+
+@enduml
