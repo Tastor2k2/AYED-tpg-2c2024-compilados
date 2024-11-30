@@ -1,0 +1,15 @@
+@startuml
+
+Class FloydWarshall {}
+
+Class CaminoMinimo {}
+
+Class Matriz {}
+
+Class Vector {}
+
+FloydWarshall <|-- CaminoMinimo
+CaminoMinimo ..> Matriz
+CaminoMinimo ..> Vector
+
+@enduml
