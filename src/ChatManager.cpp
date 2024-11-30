@@ -153,7 +153,8 @@ void ChatManager::interactuar_megatron()
 
 void ChatManager::interactuar_personaje()
 {
-  if (juego_manager.obtener_personaje() == OPTIMUS)
+  PERSONAJE personaje = juego_manager.obtener_personaje();
+  if (personaje == OPTIMUS)
   {
     interactuar_optimus();
   }

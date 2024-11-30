@@ -27,7 +27,8 @@ void BovedaTransformers::exportar_transformers()
         }
         else
         {
-            for (size_t i = 0; i < transformers.tamanio(); i++)
+            size_t cant_transformers = transformers.tamanio();
+            for (size_t i = 0; i < cant_transformers; i++)
             {
                 archivo << transformers[i].obtener_nombre() << ","
                         << transformers[i].obtener_fuerza() << ","
@@ -83,7 +84,8 @@ void BovedaTransformers::almacenar_transformer(Transformer transformer)
 
 void BovedaTransformers::mostrar_transformer(size_t posicion)
 {
-    if (posicion >= transformers.tamanio())
+    size_t cant_transformers = transformers.tamanio();
+    if (posicion >= cant_transformers)
     {
         throw ExcepcionBovedaTransformers("Posicion fuera de rango al mostrar el transformer.");
     }

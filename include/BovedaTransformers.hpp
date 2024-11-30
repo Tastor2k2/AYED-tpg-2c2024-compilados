@@ -23,7 +23,7 @@ private:
     Vector<Transformer> transformers;
 
     // Pre: -
-    // Post: Carga todos los transformers del archivo "transformers.csv" en el vector "vec_transformers".
+    // Post: Carga todos los transformers del archivo "transformers.csv" en el vector transformers.
     void cargar_transformers();
 
     // Pre: -
