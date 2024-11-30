@@ -1,0 +1,18 @@
+@startuml
+class BovedaCristales {
+}
+
+class ExceptionBovedaCristales{
+}
+
+class Cristal {
+}
+
+class Vector<T>{
+}
+
+BovedaCristales ..>ExceptionBovedaCristales
+BovedaCristales ..> Cristal
+BovedaCristales ..> Vector
+
+@enduml

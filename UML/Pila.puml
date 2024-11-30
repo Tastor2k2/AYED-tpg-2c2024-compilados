@@ -1,0 +1,15 @@
+@startuml
+
+class Pila { 
+}
+
+class ExcepcionPila{
+}
+
+class NodoLista{
+}
+
+Pila ...> NodoLista
+Pila ...> ExcepcionPila
+
+@enduml

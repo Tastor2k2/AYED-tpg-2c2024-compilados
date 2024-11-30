@@ -1,0 +1,27 @@
+@startuml
+
+class Diccionario<T> {
+}
+
+class ExcepcionDiccionario {
+}
+
+class NodoDiccionario<Clave, T> {
+}
+
+class Vector<T> {
+}
+
+class Cola<T> {
+}
+
+class NodoLista<T> {
+}
+Diccionario ..> ExcepcionDiccionario
+NodoDiccionario <.. Diccionario
+Vector <.. Diccionario
+Cola <.. Diccionario
+NodoLista <.. Cola
+
+
+@enduml

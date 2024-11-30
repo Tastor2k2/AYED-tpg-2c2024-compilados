@@ -1,0 +1,15 @@
+@startuml
+
+Class Dijkstra {}
+
+Class CaminoMinimo {}
+
+Class Matriz {}
+
+Class Vector {}
+
+Dijkstra <|-- CaminoMinimo
+CaminoMinimo ..> Matriz
+CaminoMinimo ..> Vector
+
+@enduml

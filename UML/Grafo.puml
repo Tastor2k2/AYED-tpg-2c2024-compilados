@@ -1,0 +1,26 @@
+@startuml
+
+Class Grafo {}
+
+Class CaminoMinimo {}
+
+class Dijkstra {}
+
+class FloydWarshall {}
+
+Class Matriz {}
+
+Class Vector {}
+
+Class ExcepcionGrafo {}
+
+Grafo ..> Vector
+Grafo ..> Matriz
+CaminoMinimo ..> Vector
+CaminoMinimo ..> Matriz
+Grafo ..> ExcepcionGrafo
+Grafo ..> CaminoMinimo
+CaminoMinimo --|> Dijkstra
+CaminoMinimo --|> FloydWarshall
+
+@enduml

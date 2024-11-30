@@ -1,0 +1,17 @@
+@startuml
+class FusionadorEnergon {
+}
+
+class ExceptionFusionardorEnergon {
+}
+
+class GeneradorAleatorio {
+}
+
+class Cristal {
+}
+
+FusionadorEnergon ..> ExceptionFusionardorEnergon
+FusionadorEnergon ..> GeneradorAleatorio
+FusionadorEnergon ..> Cristal
+@enduml

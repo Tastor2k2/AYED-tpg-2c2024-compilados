@@ -1,0 +1,16 @@
+@startuml
+
+class BovedaTransformers {}
+
+class ExcepcionBovedaTransformers {}
+
+class Transformer {}
+
+class Vector<Transformer>{}
+
+BovedaTransformers ..> ExcepcionBovedaTransformers
+BovedaTransformers ..> Transformer
+BovedaTransformers ..> Vector
+Transformer ..> Vector
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+
+class Heap<T> {
+}
+
+class Vector<T> {
+}
+
+class ExcepcionHeap {
+}
+
+Heap ..> Vector
+Heap ..> ExcepcionHeap
+@enduml

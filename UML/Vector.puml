@@ -1,0 +1,10 @@
+@startuml
+
+class Vector<T> {
+}
+class ExcepcionVector {
+}
+
+Vector ..> ExcepcionVector
+
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+
+class Lista<T> {
+    - cantidad_datos: size_t
+    - primer_nodo: NodoLista<T>*
+    - ultimo_nodo: NodoLista<T>*
+    - cursor: NodoLista<T>*
+
+    - ubicar_cursor(posicion: size_t, posicion_maxima: size_t): void
+    + Lista()
+    + alta_principio(dato: T): void
+    + alta_final(dato: T): void
+    + baja_primero(): T
+    + baja_ultimo(): T
+    + insertar(dato: T, posicion: size_t): insertar
+    + eliminar(posicion: size_t): T
+    + primero(): T&
+    + ultimo(): T&
+    + reiniciar_cursor(principio: bool): void
+    + avanzar(): void
+    + retroceder(): void
+    + elemento(): T&
+    + tamanio(): size_t
+    + vacio(): bool
+    + ~Lista()
+}
+
+class NodoLista<T> {
+    - dato: T
+    - anterior: NodoLista<T>*
+    - siguiente: NodoLista<T>*
+
+    + NodoLista(dato: T)
+    + NodoLista(dato: T, anterior: NodoLista<T>*, siguiente: NodoLista<T>*)
+    + obtener_dato(): T&
+    + cambiar_dato(dato: T): void
+    + obtener_anterior(): NodoLista<T>*
+    + void cambiar_anterior(anterior: NodoLista<T>*): void
+    + obtener_siguiente(): NodoLista<T>*
+    + cambiar_siguiente(siguiente: NodoLista<T>*): void
+}
+
+class ExcepcionLista {
+}
+
+Lista ..> ExcepcionLista
+NodoLista <.. Lista
+
+@enduml
