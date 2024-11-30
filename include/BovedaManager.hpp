@@ -5,6 +5,7 @@
 #include <limits>
 #include "BovedaCristales.hpp"
 #include "FusionadorEnergon.hpp"
+#include "optional"
 
 class BovedaManager
 {
@@ -39,13 +40,17 @@ private:
     // POST: Exporta los cristales de la boveda a un archivo csv.
     void exportar_cristales();
 
+    // PRE: -
+    // POST: Selecciona un cristal de la boveda y lo asigna al cristal recibido por parametros.
+    void seleccionar_cristal(std::optional<Cristal> &cristal_seleccionado);
+
 public:
     // Constructor
     BovedaManager();
 
     // PRE: -
     // POST: Muestra las opciones de la boveda y ejecuta la seleccion del usuario.
-    void administrar_boveda(bool &continuar);
+    void administrar_boveda(bool &continuar, std::optional<Cristal> &cristal_seleccionado);
 };
 
 #endif
