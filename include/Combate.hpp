@@ -13,6 +13,8 @@ class Combate
 {
 
 private:
+    size_t *combate;
+
     static const size_t CANTIDAD_MAXIMA_NIVEL = 3;
 
     PERSONAJE personaje;
@@ -26,14 +28,18 @@ private:
 public:
     Combate(PERSONAJE personaje_seleccionado, size_t poder_personaje, size_t cantidad_transformers);
 
-    void obtener_camino_combate(Grafo grafo, size_t personaje, size_t jefe_final);
+    Camino obtener_camino_combate(Grafo grafo, size_t personaje, size_t jefe_final);
 
-    void imprimir_mapa_combate(Vector<size_t> camino, int coste_total);
+    void preparar_mapa_combate(Grafo grafo, size_t personaje, size_t jefe_final);
 
     void crear_grafo(size_t cantidad_transformers, size_t poder_personaje, Vector<Transformer> transformers);
 
     void conectar_vertices(size_t cantidad_transformers, Grafo grafo_transformers, Vector<Transformer> transformers);
 
     size_t calcular_energon(Transformer rival);
+
+    size_t *obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino);
+
+    void simular_combate();
 };
 #endif

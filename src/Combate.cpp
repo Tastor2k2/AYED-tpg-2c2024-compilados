@@ -9,25 +9,50 @@ Combate::Combate(PERSONAJE personaje_seleccionado, size_t poder_personaje, size_
     energon = 1000;
 }
 
-void Combate::obtener_camino_combate(Grafo grafo, size_t personaje, size_t jefe_final)
+Camino Combate::obtener_camino_combate(Grafo grafo, size_t personaje, size_t jefe_final)
 {
     grafo.usar_dijkstra();
     resultado = grafo.obtener_camino_minimo(personaje, jefe_final);
-    Vector<size_t> camino_obtenido = resultado.camino;
-    int coste_total = resultado.costo_total;
-    imprimir_mapa_combate(camino_obtenido, coste_total);
+    return resultado;
 }
 
-void Combate::imprimir_mapa_combate(Vector<size_t> camino, int coste_total)
+size_t *Combate::obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino)
 {
+    size_t tamanio_camino = camino.tamanio();
+    size_t pesos[tamanio_camino];
     size_t elemento;
-    size_t tamaño_camino = camino.tamanio();
-    for (size_t i = 0; i < tamaño_camino; i++)
+    size_t elemento_2;
+    for (size_t i = 0; i < tamanio_camino - 1; i++)
     {
-        std::cout << camino[i] << " --- "; // FALTA IMPRIMER ADEMÁS, EL COSTE DE ESE CAMINO,
-        // HAY QUE VER LA FORMA DE TOMAR AL PESO DE LA ARISTA CON EL CAMINO RESULTANTE.
+        elemento = camino[i];
+        elemento_2 = camino[i + 1];
+        pesos[i] = grafo.peso_entre_aristas(elemento, elemento_2);
     }
-    std::cout << "COSTE TOTAL ENERGON;" << coste_total;
+    return pesos;
+}
+
+void Combate::preparar_mapa_combate(Grafo grafo, size_t personaje, size_t jefe_final)
+{
+    Camino resultado = obtener_camino_combate(grafo, personaje, jefe_final);
+    Vector<size_t> camino_resultado = resultado.camino;
+    int costo_total = resultado.costo_total;
+
+    size_t *pesos_aristas = obtener_pesos_aristas(grafo, camino_resultado);
+
+    size_t tamanio_camino = camino_resultado.tamanio();
+
+    combate = new size_t[tamanio_camino];
+
+    for (size_t i = 0; i < tamanio_camino; i++)
+    {
+        combate[i] = camino_resultado[i];
+        std::cout << camino_resultado[i] << std::endl;
+        if (i < tamanio_camino - 1)
+        {
+            std::cout << " --> Coste Energon:" << pesos_aristas[i] << std::endl;
+        }
+    }
+    std::cout << "COSTE TOTAL ENERGON;" << costo_total;
 }
 
 void Combate::crear_grafo(size_t cantidad_transformers, size_t poder_personaje, Vector<Transformer> transformers)
@@ -121,4 +146,85 @@ size_t Combate::calcular_energon(Transformer rival)
 
 void Combate::simular_combate()
 {
+    size_t tamanio = sizeof(combate) - 1;
+    for (size_t i = 0; i < tamanio; i++)
+    {
+        std::cout << combate[i] << std::endl;
+        // preguntar si transformarse o no.
+    }
+}
+
+int analisis_combate(Transformer transformer, PERSONAJE personaje)
+{
+    int ventaja = 0;
+    int ventaja_enemigo = 0;
+    int resultado;
+    if (personaje == OPTIMUS)
+    {
+        if (transformer.obtener_defensa() < optimus.obtener_defensa())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_defensa() > optimus.obtener_defensa())
+        {
+            ventaja_enemigo++;
+        }
+        if (transformer.obtener_velocidad() < optimus.obtener_velocidad())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_velocidad() > optimus.obtener_velocidad())
+        {
+            ventaja_enemigo++;
+        }
+        if (transformer.obtener_fuerza() < optimus.obtener_fuerza())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_fuerza() > optimus.obtener_fuerza())
+        {
+            ventaja_enemigo++;
+        }
+    }
+    if (personaje == MEGATRON)
+    {
+        if (transformer.obtener_defensa() < megatron.obtener_defensa())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_defensa() > megatron.obtener_defensa())
+        {
+            ventaja_enemigo++;
+        }
+        if (transformer.obtener_velocidad() < megatron.obtener_velocidad())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_velocidad() > megatron.obtener_velocidad())
+        {
+            ventaja_enemigo++;
+        }
+        if (transformer.obtener_fuerza() < megatron.obtener_fuerza())
+        {
+            ventaja++;
+        }
+        else if (transformer.obtener_fuerza() > megatron.obtener_fuerza())
+        {
+            ventaja_enemigo++;
+        }
+    }
+
+    if (ventaja > ventaja_enemigo)
+    {
+        resultado = 1;
+    }
+    else if (ventaja == ventaja_enemigo)
+    {
+        resultado = 0;
+    }
+    else
+    {
+        resultado = -1;
+    }
+    return resultado;
 }

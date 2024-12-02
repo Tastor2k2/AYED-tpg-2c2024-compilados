@@ -71,6 +71,8 @@ public:
   size_t obtener_poder();
 
   void transformar();
+
+  void aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad);
 };
 
 #endif

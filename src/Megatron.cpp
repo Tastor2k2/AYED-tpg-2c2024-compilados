@@ -136,3 +136,10 @@ void Megatron::transformar()
     this->defensa -= PLUS_DEFENZA_TANQUE;
   }
 }
+
+void Megatron::aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad)
+{
+  this->fuerza += fuerza;
+  this->velocidad += velocidad;
+  this->defensa += defensa;
+}

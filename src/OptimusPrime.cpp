@@ -145,3 +145,10 @@ void OptimusPrime::transformar()
     this->defensa -= PLUS_DEFENZA_CAMION;
   }
 }
+
+void OptimusPrime::aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad)
+{
+  this->fuerza += fuerza;
+  this->velocidad += velocidad;
+  this->defensa += defensa;
+}
