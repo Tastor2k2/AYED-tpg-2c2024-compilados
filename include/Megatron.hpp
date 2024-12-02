@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "MensajeManager.hpp"
+#include "Transformer.hpp"
 
 class Megatron
 {
@@ -37,6 +38,18 @@ private:
   static const std::string SUGERENCIA_FUSION_MANIPULACION;
   static const std::string SUGERENCIA_FUSION_AMENAZA;
 
+  // Estadísticas
+
+  size_t fuerza, defensa, velocidad;
+  bool transformado;
+  std::string nombre = "Megatron";
+  Faccion faccion = DECEPTICON;
+  Vehiculo vehiculo = TANQUE;
+
+  static const size_t PLUS_FUERZA_TANQUE;
+  static const size_t PLUS_DEFENZA_TANQUE;
+  static const size_t PLUS_VELOCIDAD_TANQUE;
+
 public:
   // Constructor
   Megatron();
@@ -54,6 +67,10 @@ public:
   // PRE: -
   // POST: Cambia la intencion de Megatron al valor del parametro recibido.
   void cambiar_intencion(std::string intencion);
+
+  size_t obtener_poder();
+
+  void transformar();
 };
 
 #endif

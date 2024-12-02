@@ -109,6 +109,8 @@ public:
     // Pre: -
     // Post: Muestra los detalles del transformer en consola.
     void mostrar_detalle();
+
+    size_t obtener_poder();
 };
 
 #endif

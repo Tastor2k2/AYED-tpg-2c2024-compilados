@@ -12,8 +12,16 @@ const std::string Megatron::SUGERENCIA_FUSION_DESPRECIO = "Fusiona cristales com
 const std::string Megatron::SUGERENCIA_FUSION_MANIPULACION = "Fusiona cristales raros para obtener un poder significativo.";
 const std::string Megatron::SUGERENCIA_FUSION_AMENAZA = "Realiza fusiones arriesgadas para obtener una ventaja poderosa.";
 
+const size_t Megatron::PLUS_FUERZA_TANQUE = 30;
+const size_t Megatron::PLUS_DEFENZA_TANQUE = 80;
+const size_t Megatron::PLUS_VELOCIDAD_TANQUE = 10;
+
 Megatron::Megatron()
 {
+  fuerza = 80;
+  defensa = 50;
+  velocidad = 10;
+  transformado = false;
   intencion = "desprecio";
   mensaje_manager = new MensajeManager();
 }
@@ -104,4 +112,27 @@ void Megatron::sugerir_fusion()
 void Megatron::cambiar_intencion(std::string intencion)
 {
   this->intencion = intencion;
+}
+
+size_t Megatron::obtener_poder()
+{
+  return velocidad + fuerza + defensa;
+}
+
+void Megatron::transformar()
+{
+  if (!transformado)
+  {
+    this->transformado = true;
+    this->fuerza += PLUS_FUERZA_TANQUE;
+    this->defensa += PLUS_DEFENZA_TANQUE;
+    this->velocidad = 0;
+  }
+  else
+  {
+    this->transformado = false;
+    this->fuerza -= PLUS_FUERZA_TANQUE;
+    this->velocidad += PLUS_VELOCIDAD_TANQUE;
+    this->defensa -= PLUS_DEFENZA_TANQUE;
+  }
 }

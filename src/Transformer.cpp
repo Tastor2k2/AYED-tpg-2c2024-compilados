@@ -90,18 +90,18 @@ void Transformer::transformar()
             this->velocidad = limitar_valores(static_cast<int>(velocidad + PLUS_VELOCIDAD_AUTO));
             break;
         case CAMION:
-            this->fuerza = limitar_valores(static_cast<int>(fuerza - PLUS_FUERZA_CAMION));
+            this->fuerza = limitar_valores(static_cast<int>(fuerza + PLUS_FUERZA_CAMION));
             this->defensa = limitar_valores(static_cast<int>(defensa + PLUS_DEFENZA_CAMION));
             this->velocidad = limitar_valores(static_cast<int>(velocidad - PLUS_VELOCIDAD_CAMION));
             break;
         case TANQUE:
             this->fuerza = limitar_valores(static_cast<int>(fuerza + PLUS_FUERZA_TANQUE));
             this->defensa = limitar_valores(static_cast<int>(defensa + PLUS_DEFENZA_TANQUE));
-            this->velocidad = limitar_valores(static_cast<int>(velocidad - PLUS_VELOCIDAD_TANQUE));
+            this->velocidad = limitar_valores(static_cast<int>(velocidad - velocidad));
             break;
         case AVION:
             this->fuerza = limitar_valores(static_cast<int>(fuerza + PLUS_FUERZA_AVION));
-            this->defensa = limitar_valores(static_cast<int>(defensa - PLUS_DEFENZA_AVION));
+            this->defensa = limitar_valores(static_cast<int>(defensa - defensa));
             this->velocidad = limitar_valores(static_cast<int>(velocidad + PLUS_VELOCIDAD_AVION));
             break;
         }
@@ -117,7 +117,7 @@ void Transformer::transformar()
             this->velocidad = limitar_valores(static_cast<int>(velocidad - PLUS_VELOCIDAD_AUTO));
             break;
         case CAMION:
-            this->fuerza = limitar_valores(static_cast<int>(fuerza + PLUS_FUERZA_CAMION));
+            this->fuerza = limitar_valores(static_cast<int>(fuerza - PLUS_FUERZA_CAMION));
             this->defensa = limitar_valores(static_cast<int>(defensa - PLUS_DEFENZA_CAMION));
             this->velocidad = limitar_valores(static_cast<int>(velocidad + PLUS_VELOCIDAD_CAMION));
             break;
@@ -190,4 +190,9 @@ void Transformer::mostrar_detalle()
         << "\nFaccion: " << obtener_cadena_faccion()
         << "\nVehiculo: " << obtener_cadena_vehiculo()
         << "\nTransformado: " << (esta_transformado() ? "SI" : "NO");
+}
+
+size_t Transformer::obtener_poder()
+{
+    return velocidad + fuerza + defensa;
 }

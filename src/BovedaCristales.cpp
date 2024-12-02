@@ -118,3 +118,20 @@ void BovedaCristales::exportar_cristales(std::string ruta)
     throw ExcepcionBovedaCristales("Error al abrir el archivo: " + ruta);
   }
 }
+
+void BovedaCristales::mostrar_cristal_max_poder(){  
+  if (cristales.tamanio() == 0){
+    throw ExcepcionBovedaCristales("La bóveda está vacía");
+  }
+  Rareza rareza_max_actual = COMUN; 
+  Rareza rareza_actual;
+  size_t posicion_rareza_max = 0;
+  for (size_t i = 0; i < cristales.tamanio(); i++) {
+    rareza_actual = cristales[i].obtener_rareza();
+    if (rareza_max_actual < rareza_actual){
+      rareza_max_actual = rareza_actual;
+      posicion_rareza_max = i;
+    }
+  }
+  mostrar_cristal(posicion_rareza_max, cristales[posicion_rareza_max]);
+}  

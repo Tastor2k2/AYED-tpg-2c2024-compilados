@@ -187,3 +187,11 @@ void TransformersManager::administrar_transformers(bool &continuar)
     std::cout << "\nOpción inválida";
   }
 }
+
+size_t TransformersManager::obtener_cantidad_transformers(){
+  return boveda_transformers.cantidad_transformers();
+}
+
+Vector<Transformer> TransformersManager::obtener_transformers_boveda(){
+  return boveda_transformers.obtener_transformers();
+}

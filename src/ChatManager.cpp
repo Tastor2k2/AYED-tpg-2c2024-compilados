@@ -10,8 +10,8 @@ void ChatManager::mostrar_opciones()
   std::cout << "\n2- Interactuar con personaje";
   std::cout << "\n3- Administrar Boveda de Cristales";
   std::cout << "\n4- Administrar Transformers";
-  std::cout << "\n15- Iniciar Batalla";
-  std::cout << "\n16- Tabla de Clasificacion";
+  std::cout << "\n5- Iniciar Batalla";
+  std::cout << "\n6- Tabla de Clasificacion";
   std::cout << "\n7- Salir";
 
   std::cout << "\n******************************";
@@ -50,7 +50,15 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   switch (opcion)
   {
   case 1:
-    juego_manager.elegir_personaje();
+    PERSONAJE personaje = juego_manager.elegir_personaje();
+    if (personaje == OPTIMUS)
+    {
+      juego_manager.cambiar_poder(optimus.obtener_poder());
+    }
+    else
+    {
+      juego_manager.cambiar_poder(megatron.obtener_poder());
+    }
     break;
   case 2:
     interactuar_personaje();
@@ -60,6 +68,9 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     break;
   case 4:
     administrar_transformers();
+    break;
+  case 5:
+    juego_manager.empezar_combate(transformers_manager.obtener_transformers_boveda());
     break;
   case 7:
     continuar = false;

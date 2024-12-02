@@ -37,7 +37,7 @@ PERSONAJE JuegoManager::obtener_personaje()
     return personaje_seleccionado;
 }
 
-void JuegoManager::elegir_personaje()
+PERSONAJE JuegoManager::elegir_personaje()
 {
     int opcion = -1;
 
@@ -72,4 +72,21 @@ void JuegoManager::administrar_boveda_cristales(bool &continuar)
 
     boveda_manager.administrar_boveda(continuar, cristal_seleccionado);
     obtener_cristal();
+}
+
+size_t JuegoManager::obtener_poder()
+{
+    return poder_personaje;
+}
+
+void JuegoManager::cambiar_poder(size_t poder)
+{
+    this->poder_personaje = poder;
+}
+
+void JuegoManager::empezar_combate(Vector<Transformer> transformers)
+{
+    size_t cantidad_transformers = transformers_manager.obtener_cantidad_transformers();
+    Combate combate(personaje_seleccionado, poder_personaje, cantidad_transformers);
+    combate.crear_grafo(cantidad_transformers, poder_personaje, transformers);
 }
