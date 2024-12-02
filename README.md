@@ -31,9 +31,21 @@
    - Todos los metodos de mostrado tienen un metodo privado con su mismo nombre seguido de un "_recursivo" y se llaman hasta que terminan de mostrar los datos del diccionario.
       En el caso de ancho_recursivo, se utilizó una cola para mostrar adecuadamente los datos recorriendo desde la raiz hasta llegar a los nodos hoja.
    - Para asegurar que no haya perdidas de memoria, el destructor llama a eliminar_nodos, que recibe la raiz, y elimina primer el subarbol izquierdo y luego el derecho.
-3. // COMPLETAR //
-4. // COMPLETAR //
-5. // COMPLETAR //
+3. Implementacion de Heap:
+   - Esta basado en un árbol binario que mantiene una propiedad fundamental: en un heap de máxima, el valor de cada nodo padre es mayor o 
+     igual al de sus hijos; en un heap de mínima, el valor de cada nodo padre es menor o igual al de sus hijos. Esta propiedad lo hace especialmente útil en la implementación de colas de prioridad, ya 
+     que permite acceder al elemento de mayor o menor prioridad en 𝑂(1) y realizar inserciones o eliminaciones eficientes en 𝑂(log n).
+   - En la inserción, el elemento se añade al final del arreglo para preservar la estructura del árbol binario completo.El método de ordenar hacia arriba garantiza que, después de insertar un elemento, 
+     este se coloque en una posición que respete la propiedad del heap. Durante este proceso, se compara iterativamente el nodo con su padre y se intercambian si no cumplen la propiedad.
+   - En la eliminación del elemento raíz (el máximo en un heap de máxima o el mínimo en un heap de mínima), se sustituye el elemento de la raíz por el último elemento del arreglo para mantener la 
+    estructura del árbol. Luego, se "ordena hacia abajo" intercambiándolo con el hijo más prometedor (el mayor o menor, dependiendo del tipo de heap) hasta que se restaure la propiedad. Este proceso 
+    también tiene complejidad 𝑂(log𝑛) y asegura que el árbol conserve su estructura de heap binario completo.
+5. Implementacion de Cola:
+   - La estructura de datos Cola es una abstracción que sigue el principio FIFO (First In, First Out). Se implementa mediante una lista enlazada, donde cada elemento (nodo) contiene un dato y un puntero 
+     al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que ambas operaciones ocurren en 𝑂(1) al añadir un nuevo 
+     nodo al final o al eliminar el primer nodo.
+   - El método Alta() agrega el dato al final de de la cola y Baja() elimina el primer elemento de la cola. Para que esto funcione la cola no debe estar vacía.
+7. // COMPLETAR //
 
 ## Compilación
 
