@@ -11,15 +11,6 @@
 #include "TransformersManager.hpp"
 #include "Cristal.hpp"
 #include "Combate.hpp"
-#include "BovedaTransformers.hpp"
-#include "TransformersManager.hpp"
-#include "ChatManager.hpp"
-
-enum PERSONAJE
-{
-    OPTIMUS,
-    MEGATRON
-};
 
 class JuegoManager
 {
@@ -43,7 +34,7 @@ public:
 
     // PRE: -
     // POST: Mostrara las opciones de seleccion de personaje y guardara el seleccionado
-    PERSONAJE elegir_personaje();
+    void elegir_personaje();
 
     std::optional<Cristal> obtener_cristal();
 

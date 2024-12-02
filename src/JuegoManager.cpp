@@ -37,7 +37,7 @@ PERSONAJE JuegoManager::obtener_personaje()
     return personaje_seleccionado;
 }
 
-PERSONAJE JuegoManager::elegir_personaje()
+void JuegoManager::elegir_personaje()
 {
     int opcion = -1;
 

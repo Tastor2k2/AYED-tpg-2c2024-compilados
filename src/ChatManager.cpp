@@ -50,15 +50,7 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   switch (opcion)
   {
   case 1:
-    PERSONAJE personaje = juego_manager.elegir_personaje();
-    if (personaje == OPTIMUS)
-    {
-      juego_manager.cambiar_poder(optimus.obtener_poder());
-    }
-    else
-    {
-      juego_manager.cambiar_poder(megatron.obtener_poder());
-    }
+    seleccionar_personaje();
     break;
   case 2:
     interactuar_personaje();
@@ -83,6 +75,22 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   }
 
   opcion = -1;
+}
+
+void ChatManager::seleccionar_personaje()
+{
+  juego_manager.elegir_personaje();
+
+  PERSONAJE personaje = juego_manager.obtener_personaje();
+
+  if (personaje == OPTIMUS)
+  {
+    juego_manager.cambiar_poder(optimus.obtener_poder());
+  }
+  else
+  {
+    juego_manager.cambiar_poder(megatron.obtener_poder());
+  }
 }
 
 void ChatManager::iniciar_chat()

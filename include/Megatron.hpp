@@ -42,9 +42,10 @@ private:
 
   size_t fuerza, defensa, velocidad;
   bool transformado;
-  std::string nombre = "Megatron";
-  Faccion faccion = DECEPTICON;
-  Vehiculo vehiculo = TANQUE;
+
+  // std::string nombre = "Megatron";
+  // Faccion faccion = DECEPTICON;
+  // Vehiculo vehiculo = TANQUE;
 
   static const size_t PLUS_FUERZA_TANQUE;
   static const size_t PLUS_DEFENZA_TANQUE;

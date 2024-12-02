@@ -1,18 +1,23 @@
 #ifndef COMBATE_HPP
 #define COMBATE_HPP
 
-#include "JuegoManager.hpp"
 #include "Grafo.hpp"
 #include "Vector.hpp"
 #include "OptimusPrime.hpp"
 #include "Megatron.hpp"
 
-Camino resultado{};
+enum PERSONAJE
+{
+    OPTIMUS,
+    MEGATRON
+};
 
 class Combate
 {
 
 private:
+    Camino resultado{};
+
     size_t *combate;
 
     static const size_t CANTIDAD_MAXIMA_NIVEL = 3;
@@ -38,7 +43,7 @@ public:
 
     size_t calcular_energon(Transformer rival);
 
-    size_t *obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino);
+    Vector<size_t> obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino);
 
     void simular_combate();
 };

@@ -141,6 +141,6 @@ Grafo::~Grafo()
 
 size_t Grafo::peso_entre_aristas(size_t primero, size_t segundo)
 {
-    size_t resultado = matriz_pesos(primero, segundo);
-    return resultado;
+    int peso = matriz_pesos(primero, segundo);
+    return static_cast<size_t>(peso);
 }

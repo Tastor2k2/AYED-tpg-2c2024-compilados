@@ -16,18 +16,20 @@ Camino Combate::obtener_camino_combate(Grafo grafo, size_t personaje, size_t jef
     return resultado;
 }
 
-size_t *Combate::obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino)
+Vector<size_t> Combate::obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino)
 {
     size_t tamanio_camino = camino.tamanio();
-    size_t pesos[tamanio_camino];
+    Vector<size_t> pesos;
     size_t elemento;
     size_t elemento_2;
+
     for (size_t i = 0; i < tamanio_camino - 1; i++)
     {
         elemento = camino[i];
         elemento_2 = camino[i + 1];
-        pesos[i] = grafo.peso_entre_aristas(elemento, elemento_2);
+        pesos.alta(grafo.peso_entre_aristas(elemento, elemento_2));
     }
+
     return pesos;
 }
 
@@ -37,7 +39,7 @@ void Combate::preparar_mapa_combate(Grafo grafo, size_t personaje, size_t jefe_f
     Vector<size_t> camino_resultado = resultado.camino;
     int costo_total = resultado.costo_total;
 
-    size_t *pesos_aristas = obtener_pesos_aristas(grafo, camino_resultado);
+    Vector<size_t> pesos_aristas = obtener_pesos_aristas(grafo, camino_resultado);
 
     size_t tamanio_camino = camino_resultado.tamanio();
 
@@ -74,9 +76,9 @@ void Combate::conectar_vertices(size_t cantidad_transformers, Grafo grafo_transf
     if (cantidad_transformers == 3)
     { // caso especia, solo 3 transformers.
         peso_arista = calcular_energon(transformers[0]);
-        grafo_transformers.agregar_arista(0, 1, peso_arista);
+        grafo_transformers.agregar_arista(0, 1, static_cast<int>(peso_arista));
         // FALTA CALCULAR EL PESO DEL TRANSFORMER RIVAL MEGATRON U OPTIMUS
-        grafo_transformers.agregar_arista(1, 2, peso_arista);
+        grafo_transformers.agregar_arista(1, 2, static_cast<int>(peso_arista));
     }
     else
     {
@@ -91,7 +93,7 @@ void Combate::conectar_vertices(size_t cantidad_transformers, Grafo grafo_transf
                 for (size_t nodo_anterior = inicio_nivel_anterior; nodo_anterior < fin_nivel_anterior; nodo_anterior++)
                 {
                     peso_arista = calcular_energon(transformers[nodo_actual]);
-                    grafo_transformers.agregar_arista(nodo_anterior, nodo_actual, peso_arista);
+                    grafo_transformers.agregar_arista(nodo_anterior, nodo_actual, static_cast<int>(peso_arista));
                 }
             }
             if (inicio_nivel_actual < cantidad_transformers)
@@ -105,7 +107,7 @@ void Combate::conectar_vertices(size_t cantidad_transformers, Grafo grafo_transf
                 for (size_t nodo_anterior = inicio_nivel_anterior; nodo_anterior < fin_nivel_anterior; nodo_anterior++)
                 {
                     peso_arista = calcular_energon(transformers[nodo_anterior]);
-                    grafo_transformers.agregar_arista(nodo_anterior, cantidad_transformers, peso_arista);
+                    grafo_transformers.agregar_arista(nodo_anterior, cantidad_transformers, static_cast<int>(peso_arista));
                 }
             }
         }
@@ -121,14 +123,10 @@ FALTA CALCULAR COSTE DE ENERGON CUANDO EL RIVAL ES EL JEFE FINAL (OPTIMUS O MEGA
 size_t Combate::calcular_energon(Transformer rival)
 {
     size_t costo;
-    if (rival.obtener_faccion() == personaje)
+    if (rival.obtener_faccion() == static_cast<Faccion>(personaje))
     {
         costo = 30;
     }
-    /*if (rival.obtener_faccion() == AUTOBOT && personaje == OPTIMUS || rival.obtener_faccion() == DECEPTICON && personaje == MEGATRON )
-    {
-        costo = 30
-    }*/
     else
     {
         costo = 50 + (rival.obtener_poder()) - (poder_personaje);
@@ -156,75 +154,79 @@ void Combate::simular_combate()
 
 int analisis_combate(Transformer transformer, PERSONAJE personaje)
 {
-    int ventaja = 0;
-    int ventaja_enemigo = 0;
-    int resultado;
-    if (personaje == OPTIMUS)
-    {
-        if (transformer.obtener_defensa() < optimus.obtener_defensa())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_defensa() > optimus.obtener_defensa())
-        {
-            ventaja_enemigo++;
-        }
-        if (transformer.obtener_velocidad() < optimus.obtener_velocidad())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_velocidad() > optimus.obtener_velocidad())
-        {
-            ventaja_enemigo++;
-        }
-        if (transformer.obtener_fuerza() < optimus.obtener_fuerza())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_fuerza() > optimus.obtener_fuerza())
-        {
-            ventaja_enemigo++;
-        }
-    }
-    if (personaje == MEGATRON)
-    {
-        if (transformer.obtener_defensa() < megatron.obtener_defensa())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_defensa() > megatron.obtener_defensa())
-        {
-            ventaja_enemigo++;
-        }
-        if (transformer.obtener_velocidad() < megatron.obtener_velocidad())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_velocidad() > megatron.obtener_velocidad())
-        {
-            ventaja_enemigo++;
-        }
-        if (transformer.obtener_fuerza() < megatron.obtener_fuerza())
-        {
-            ventaja++;
-        }
-        else if (transformer.obtener_fuerza() > megatron.obtener_fuerza())
-        {
-            ventaja_enemigo++;
-        }
-    }
+    //     int ventaja = 0;
+    //     int ventaja_enemigo = 0;
+    //     int resultado;
 
-    if (ventaja > ventaja_enemigo)
-    {
-        resultado = 1;
-    }
-    else if (ventaja == ventaja_enemigo)
-    {
-        resultado = 0;
-    }
-    else
-    {
-        resultado = -1;
-    }
-    return resultado;
+    //     if (personaje == OPTIMUS)
+    //     {
+    //         if (transformer.obtener_defensa() < optimus.obtener_defensa())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_defensa() > optimus.obtener_defensa())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+
+    //         if (transformer.obtener_velocidad() < optimus.obtener_velocidad())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_velocidad() > optimus.obtener_velocidad())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+
+    //         if (transformer.obtener_fuerza() < optimus.obtener_fuerza())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_fuerza() > optimus.obtener_fuerza())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+    //     }
+    //     if (personaje == MEGATRON)
+    //     {
+    //         if (transformer.obtener_defensa() < megatron.obtener_defensa())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_defensa() > megatron.obtener_defensa())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+    //         if (transformer.obtener_velocidad() < megatron.obtener_velocidad())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_velocidad() > megatron.obtener_velocidad())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+    //         if (transformer.obtener_fuerza() < megatron.obtener_fuerza())
+    //         {
+    //             ventaja++;
+    //         }
+    //         else if (transformer.obtener_fuerza() > megatron.obtener_fuerza())
+    //         {
+    //             ventaja_enemigo++;
+    //         }
+    //     }
+
+    //     if (ventaja > ventaja_enemigo)
+    //     {
+    //         resultado = 1;
+    //     }
+    //     else if (ventaja == ventaja_enemigo)
+    //     {
+    //         resultado = 0;
+    //     }
+    //     else
+    //     {
+    //         resultado = -1;
+    //     }
+    //     return resultado;
+    return -1;
 }

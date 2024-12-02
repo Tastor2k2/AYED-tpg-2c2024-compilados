@@ -44,6 +44,7 @@ set(ARCHIVOS_FUENTE
         src/BovedaTransformers.cpp
         src/TransformersManager.cpp
         src/JuegoManager.cpp
+        src/Combate.cpp
 )
 
 add_executable(AYED_TPG_2C2024

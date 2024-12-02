@@ -44,9 +44,6 @@ private:
 
   size_t fuerza, defensa, velocidad;
   bool transformado;
-  std::string nombre = "OptimusPrime";
-  Faccion faccion = AUTOBOT;
-  Vehiculo vehiculo = CAMION;
 
   static const size_t PLUS_FUERZA_CAMION;
   static const size_t PLUS_DEFENZA_CAMION;

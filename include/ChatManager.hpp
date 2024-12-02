@@ -5,8 +5,6 @@
 #include <limits>
 #include "OptimusPrime.hpp"
 #include "Megatron.hpp"
-#include "BovedaCristales.hpp"
-#include "BovedaManager.hpp"
 #include "TransformersManager.hpp"
 #include "JuegoManager.hpp"
 
@@ -60,6 +58,8 @@ private:
   // PRE: -
   // POST: Muestra las opciones e Interactua con Megatron.
   void interactuar_megatron();
+
+  void seleccionar_personaje();
 
 public:
   // Constructor
