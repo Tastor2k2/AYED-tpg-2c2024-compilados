@@ -122,6 +122,7 @@ FALTA CALCULAR COSTE DE ENERGON CUANDO EL RIVAL ES EL JEFE FINAL (OPTIMUS O MEGA
 */
 
 size_t Combate::calcular_energon(Transformer rival)
+// NUMEROS MAGICOS
 {
     size_t costo;
     if (rival.obtener_faccion() == static_cast<Faccion>(personaje))
