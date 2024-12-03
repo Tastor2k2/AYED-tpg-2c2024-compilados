@@ -11,7 +11,7 @@ Cristal::Cristal()
 
 Cristal::Cristal(Rareza rareza)
 {
-  int multiplicador = rareza + 1;
+  size_t multiplicador = rareza + 1;
 
   fuerza = 10 * multiplicador;
   defensa = 10 * multiplicador;
@@ -39,17 +39,13 @@ void Cristal::mostrar_estadisticas()
   std::cout << "------------------" << std::endl;
 }
 
-int Cristal::obtener_defensa()
+size_t Cristal::obtener_poder()
 {
-  return defensa;
+  size_t poder = fuerza + defensa + velocidad;
+  return poder;
 }
 
-int Cristal::obtener_fuerza()
+Estadisticas Cristal::obtener_estadisticas()
 {
-  return fuerza;
-}
-
-int Cristal::obtener_velocidad()
-{
-  return velocidad;
+  return {fuerza, defensa, velocidad};
 }

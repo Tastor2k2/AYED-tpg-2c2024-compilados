@@ -20,7 +20,8 @@ void BovedaManager::mostrar_opciones_boveda()
   std::cout << "\n4- Eliminar cristal";
   std::cout << "\n5- Exportar a csv";
   std::cout << "\n6- Equipar cristal";
-  std::cout << "\n7- Salir";
+  std::cout << "\n7- Mostrar cristal de mayor poder";
+  std::cout << "\n8- Salir";
   std::cout << "\n******************************";
   std::cout << "\n- ";
 }
@@ -88,13 +89,14 @@ void BovedaManager::administrar_boveda(bool &continuar, std::optional<Cristal> &
     seleccionar_cristal(cristal_seleccionado);
     break;
   case 7:
+    boveda.mostrar_cristal_max_poder();
+  case 8:
     continuar = false;
     break;
   default:
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
-    break;
   }
 }
 

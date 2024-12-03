@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "MensajeManager.hpp"
+#include "Transformer.hpp"
 
 class OptimusPrime
 {
@@ -39,6 +40,15 @@ private:
   static const std::string SUGERENCIA_FUSION_DETERMINADO;
   static const std::string SUGERENCIA_FUSION_ENFURECIDO;
 
+  // Estadísticas
+
+  size_t fuerza, defensa, velocidad;
+  bool transformado;
+
+  static const size_t PLUS_FUERZA_CAMION;
+  static const size_t PLUS_DEFENZA_CAMION;
+  static const size_t PLUS_VELOCIDAD_CAMION;
+
 public:
   // Constructor
   OptimusPrime();
@@ -55,6 +65,14 @@ public:
   // PRE: -
   // POST: Cambia el animo de Optimus Prime al valor del parametro recibido.
   void cambiar_animo(std::string animo);
+
+  size_t obtener_poder();
+
+  void transformar();
+
+  Estadisticas obtener_estadisticas();
+
+  std::string obtener_personaje_string();
 };
 
 #endif

@@ -87,14 +87,11 @@ Rareza BovedaCristales::obtener_rareza_cristal(size_t posicion)
 void BovedaCristales::exportar_cristal(std::ofstream &archivo, Cristal cristal)
 {
   Rareza rareza;
-  int fuerza, velocidad, defensa;
+  Estadisticas estadisticas = cristal.obtener_estadisticas();
 
   rareza = cristal.obtener_rareza();
-  defensa = cristal.obtener_defensa();
-  velocidad = cristal.obtener_velocidad();
-  fuerza = cristal.obtener_fuerza();
 
-  archivo << rareza << "," << fuerza << "," << velocidad << "," << defensa << "\n";
+  archivo << rareza << "," << estadisticas.fuerza << "," << estadisticas.velocidad << "," << estadisticas.defensa << "\n";
 }
 
 void BovedaCristales::exportar_cristales(std::string ruta)
@@ -117,4 +114,25 @@ void BovedaCristales::exportar_cristales(std::string ruta)
   {
     throw ExcepcionBovedaCristales("Error al abrir el archivo: " + ruta);
   }
+}
+
+void BovedaCristales::mostrar_cristal_max_poder()
+{
+  if (cristales.tamanio() == 0)
+  {
+    throw ExcepcionBovedaCristales("La bóveda está vacía");
+  }
+  Rareza rareza_max_actual = COMUN;
+  Rareza rareza_actual;
+  size_t posicion_rareza_max = 0;
+  for (size_t i = 0; i < cristales.tamanio(); i++)
+  {
+    rareza_actual = cristales[i].obtener_rareza();
+    if (rareza_max_actual < rareza_actual)
+    {
+      rareza_max_actual = rareza_actual;
+      posicion_rareza_max = i;
+    }
+  }
+  mostrar_cristal(posicion_rareza_max, cristales[posicion_rareza_max]);
 }

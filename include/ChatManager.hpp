@@ -5,9 +5,6 @@
 #include <limits>
 #include "OptimusPrime.hpp"
 #include "Megatron.hpp"
-#include "BovedaCristales.hpp"
-#include "BovedaManager.hpp"
-#include "TransformersManager.hpp"
 #include "JuegoManager.hpp"
 
 class ChatManager
@@ -15,7 +12,6 @@ class ChatManager
 private:
   OptimusPrime optimus;
   Megatron megatron;
-  TransformersManager transformers_manager;
   JuegoManager juego_manager;
 
   // PRE: -
@@ -60,6 +56,8 @@ private:
   // PRE: -
   // POST: Muestra las opciones e Interactua con Megatron.
   void interactuar_megatron();
+
+  void seleccionar_personaje();
 
 public:
   // Constructor

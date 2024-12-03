@@ -38,41 +38,41 @@ void TransformersManager::aniadir_transformer()
   size_t velocidad;
   std::cin >> velocidad;
 
-  std::cout << "\nIngrese la faccion: ";
-  std::cout << "\n0- Autobot";
-  std::cout << "\n1- Decepticon";
-  std::cout << "\n- ";
-  // implementar loop
+  int faccion_num = -1;
+  while (faccion_num < 0 || faccion_num > 1)
+  {
+    std::cout << "\nIngrese la faccion: ";
+    std::cout << "\n0- Autobot";
+    std::cout << "\n1- Decepticon";
+    std::cout << "\n- ";
+    std::cin >> faccion_num;
+  }
 
-  size_t faccion_num;
-  std::cin >> faccion_num;
   Faccion faccion = static_cast<Faccion>(faccion_num);
 
   std::cout << faccion;
-
+  bool es_autobot = faccion == AUTOBOT;
   Vehiculo vehiculo;
-  size_t vehiculo_num;
-  std::cout << "\nIngrese el vehiculo:";
-  if (faccion == AUTOBOT)
+  int vehiculo_num = -1;
+  while (vehiculo_num < 0 || vehiculo_num > 1)
   {
-
-    // implementar loop
-    std::cout << "\n0- Auto";
-    std::cout << "\n1- Camion";
-    std::cout << "\n- ";
-    std::cin >> vehiculo_num;
-    vehiculo = static_cast<Vehiculo>(vehiculo_num < 2 ? vehiculo_num : 0);
+    std::cout << "\nIngrese el vehiculo:";
+    if (es_autobot)
+    {
+      std::cout << "\n0- Auto";
+      std::cout << "\n1- Camion";
+      std::cout << "\n- ";
+      std::cin >> vehiculo_num;
+    }
+    else
+    {
+      std::cout << "\n0- Tanque";
+      std::cout << "\n1- Avion";
+      std::cout << "\n- ";
+      std::cin >> vehiculo_num;
+    }
   }
-  else
-  {
-    // implementar loop
-    std::cout << "\n0- Tanque";
-    std::cout << "\n1- Avion";
-    std::cout << "\n- ";
-    std::cin >> vehiculo_num;
-    vehiculo = static_cast<Vehiculo>(vehiculo_num < 2 ? vehiculo_num + 2 : 2);
-  }
-
+  vehiculo = static_cast<Vehiculo>(es_autobot ? vehiculo_num : vehiculo_num + 2);
   Transformer transformer = Transformer(nombre, fuerza, defensa, velocidad, faccion, vehiculo, false);
   boveda_transformers.almacenar_transformer(transformer);
 }
@@ -186,4 +186,14 @@ void TransformersManager::administrar_transformers(bool &continuar)
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
   }
+}
+
+size_t TransformersManager::obtener_cantidad_transformers()
+{
+  return boveda_transformers.cantidad_transformers();
+}
+
+Vector<Transformer> TransformersManager::obtener_transformers_boveda()
+{
+  return boveda_transformers.obtener_transformers();
 }

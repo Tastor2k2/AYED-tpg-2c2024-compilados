@@ -3,32 +3,37 @@
 
 #include "CaminoMinimo.hpp"
 
-class ExcepcionGrafo : public std::runtime_error {
+class ExcepcionGrafo : public std::runtime_error
+{
 public:
-    ExcepcionGrafo(std::string mensaje): runtime_error(mensaje) {
+    ExcepcionGrafo(std::string mensaje) : runtime_error(mensaje)
+    {
     }
 
-    ExcepcionGrafo(): runtime_error("") {
+    ExcepcionGrafo() : runtime_error("")
+    {
     }
 };
 
-struct Camino {
+struct Camino
+{
     Vector<size_t> camino;
     int costo_total;
 };
 
 // Este grafo está implementado con una matriz de adyacencia.
 // Para más información: https://es.wikipedia.org/wiki/Matriz_de_adyacencia
-class Grafo {
+class Grafo
+{
 private:
     Matriz<bool> matriz_adyacencia;
     Matriz<int> matriz_pesos;
     size_t vertices;
-    CaminoMinimo* algoritmo_camino_minimo;
+    CaminoMinimo *algoritmo_camino_minimo;
 
     // Pre: -
     // Post: Calcula y devuelve el costo total del camino.
-    int calcular_costo_camino(Vector<size_t>& camino);
+    int calcular_costo_camino(Vector<size_t> &camino);
 
 public:
     // Constructores.
@@ -68,12 +73,17 @@ public:
     Camino obtener_camino_minimo(size_t origen, size_t destino);
 
     // Constructor de copia.
-    Grafo(const Grafo& grafo);
+    Grafo(const Grafo &grafo);
 
     // Operador de asignación.
-    Grafo& operator=(const Grafo& grafo);
+    Grafo &operator=(const Grafo &grafo);
 
+    // Destructor
     ~Grafo();
+
+    // Pre: -
+    // Post: Getter de peso entre vertices (peso de aristas).
+    size_t peso_entre_vertices(size_t primero, size_t segundo);
 };
 
 #endif

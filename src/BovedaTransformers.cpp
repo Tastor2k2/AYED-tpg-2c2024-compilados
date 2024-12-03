@@ -9,7 +9,6 @@ BovedaTransformers::BovedaTransformers()
 
 BovedaTransformers::~BovedaTransformers()
 {
-    exportar_transformers();
 }
 
 void BovedaTransformers::exportar_transformers()
@@ -17,6 +16,8 @@ void BovedaTransformers::exportar_transformers()
     std::ofstream archivo("archivos_csv/transformers.csv");
     std::string linea;
     Vector<std::string> lineas;
+    Estadisticas estadisticas;
+
     if (archivo.is_open())
     {
         if (transformers.vacio())
@@ -30,10 +31,11 @@ void BovedaTransformers::exportar_transformers()
             size_t cant_transformers = transformers.tamanio();
             for (size_t i = 0; i < cant_transformers; i++)
             {
+                estadisticas = transformers[i].obtener_estadisticas();
                 archivo << transformers[i].obtener_nombre() << ","
-                        << transformers[i].obtener_fuerza() << ","
-                        << transformers[i].obtener_defensa() << ","
-                        << transformers[i].obtener_velocidad() << ","
+                        << estadisticas.fuerza << ","
+                        << estadisticas.defensa << ","
+                        << estadisticas.velocidad << ","
                         << transformers[i].obtener_faccion() << ","
                         << transformers[i].obtener_vehiculo() << ","
                         << transformers[i].esta_transformado() << "\n";
@@ -79,6 +81,7 @@ void BovedaTransformers::almacenar_transformer(Transformer transformer)
         std::cout << "\nTransformer actualizado";
         transformers[static_cast<size_t>(posicion)] = transformer;
     }
+    exportar_transformers();
     std::cout << "\n--------------------------------";
 }
 
@@ -136,7 +139,9 @@ int BovedaTransformers::obtener_posicion_transformer(std::string nombre)
 
 Transformer BovedaTransformers::eliminar_transformer(size_t posicion)
 {
-    return transformers.baja(posicion);
+    Transformer eliminado = transformers.baja(posicion);
+    exportar_transformers();
+    return eliminado;
 }
 
 size_t BovedaTransformers::cantidad_transformers()

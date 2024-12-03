@@ -10,8 +10,8 @@ void ChatManager::mostrar_opciones()
   std::cout << "\n2- Interactuar con personaje";
   std::cout << "\n3- Administrar Boveda de Cristales";
   std::cout << "\n4- Administrar Transformers";
-  std::cout << "\n15- Iniciar Batalla";
-  std::cout << "\n16- Tabla de Clasificacion";
+  std::cout << "\n5- Iniciar Batalla";
+  std::cout << "\n6- Tabla de Clasificacion";
   std::cout << "\n7- Salir";
 
   std::cout << "\n******************************";
@@ -50,7 +50,7 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   switch (opcion)
   {
   case 1:
-    juego_manager.elegir_personaje();
+    seleccionar_personaje();
     break;
   case 2:
     interactuar_personaje();
@@ -61,6 +61,12 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   case 4:
     administrar_transformers();
     break;
+  case 5:
+    juego_manager.empezar_combate();
+    break;
+  case 6:
+    juego_manager.mostrar_puntajes();
+    break;
   case 7:
     continuar = false;
     break;
@@ -68,10 +74,25 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
-    break;
   }
 
   opcion = -1;
+}
+
+void ChatManager::seleccionar_personaje()
+{
+  juego_manager.elegir_personaje();
+
+  Personaje personaje = juego_manager.obtener_personaje();
+
+  if (personaje == OPTIMUS)
+  {
+    juego_manager.cambiar_poder(optimus.obtener_poder());
+  }
+  else
+  {
+    juego_manager.cambiar_poder(megatron.obtener_poder());
+  }
 }
 
 void ChatManager::iniciar_chat()
@@ -153,7 +174,7 @@ void ChatManager::interactuar_megatron()
 
 void ChatManager::interactuar_personaje()
 {
-  PERSONAJE personaje = juego_manager.obtener_personaje();
+  Personaje personaje = juego_manager.obtener_personaje();
   if (personaje == OPTIMUS)
   {
     interactuar_optimus();
@@ -185,7 +206,7 @@ void ChatManager::administrar_transformers()
   std::cout << "\n|Administrar Transformers|";
   while (continuar)
   {
-    transformers_manager.administrar_transformers(continuar);
+    juego_manager.administrar_boveda_transformers(continuar);
   }
 }
 

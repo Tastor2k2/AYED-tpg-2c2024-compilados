@@ -14,8 +14,16 @@ const std::string OptimusPrime::SUGERENCIA_FUSION_SERENO = "Te recomiendo fusion
 const std::string OptimusPrime::SUGERENCIA_FUSION_DETERMINADO = "Te sugiero fusionar cristales raros para prepararte para la batalla.";
 const std::string OptimusPrime::SUGERENCIA_FUSION_ENFURECIDO = "Fusiona cristales de alto riesgo para obtener una ventaja decisiva.";
 
+const size_t OptimusPrime::PLUS_FUERZA_CAMION = 40;
+const size_t OptimusPrime::PLUS_DEFENZA_CAMION = 60;
+const size_t OptimusPrime::PLUS_VELOCIDAD_CAMION = 15;
+
 OptimusPrime::OptimusPrime()
 {
+  fuerza = 100;
+  defensa = 90;
+  velocidad = 20;
+  transformado = false;
   animo = "sereno";
   mensaje_manager = new MensajeManager();
 }
@@ -113,4 +121,37 @@ void OptimusPrime::sugerir_fusion()
 void OptimusPrime::cambiar_animo(std::string animo)
 {
   this->animo = animo;
+}
+
+size_t OptimusPrime::obtener_poder()
+{
+  return fuerza + defensa + velocidad;
+}
+
+void OptimusPrime::transformar()
+{
+  if (!transformado)
+  {
+    this->transformado = true;
+    this->fuerza += PLUS_FUERZA_CAMION;
+    this->defensa += PLUS_DEFENZA_CAMION;
+    this->velocidad -= PLUS_VELOCIDAD_CAMION;
+  }
+  else
+  {
+    this->transformado = false;
+    this->fuerza -= PLUS_FUERZA_CAMION;
+    this->velocidad += PLUS_VELOCIDAD_CAMION;
+    this->defensa -= PLUS_DEFENZA_CAMION;
+  }
+}
+
+Estadisticas OptimusPrime::obtener_estadisticas()
+{
+  return {fuerza, defensa, velocidad};
+}
+
+std::string OptimusPrime::obtener_personaje_string()
+{
+  return "Optimus";
 }

@@ -40,6 +40,14 @@ public:
     // PRE: -
     // POST: Muestra las opciones de los trasnformers secundarios y ejecuta la seleccion del usuario.
     void administrar_transformers(bool &continuar);
+
+    // PRE: -
+    // POST: Devuelve la cantidad de transformers. 
+    size_t obtener_cantidad_transformers();
+
+    // PRE: -
+    // POST: Devuelve el vector transformer.
+    Vector<Transformer> obtener_transformers_boveda();
 };
 
 #endif
