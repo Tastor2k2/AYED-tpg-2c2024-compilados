@@ -38,8 +38,7 @@
    - En la inserción, el elemento se añade al final del arreglo para preservar la estructura del árbol binario completo.El método de ordenar hacia arriba garantiza que, después de insertar un elemento, 
      este se coloque en una posición que respete la propiedad del heap. Durante este proceso, se compara iterativamente el nodo con su padre y se intercambian si no cumplen la propiedad.
    - En la eliminación del elemento raíz (el máximo en un heap de máxima o el mínimo en un heap de mínima), se sustituye el elemento de la raíz por el último elemento del arreglo para mantener la 
-    estructura del árbol. Luego, se "ordena hacia abajo" intercambiándolo con el hijo más prometedor (el mayor o menor, dependiendo del tipo de heap) hasta que se restaure la propiedad. Este proceso 
-    también tiene complejidad 𝑂(log𝑛) y asegura que el árbol conserve su estructura de heap binario completo.
+    estructura del árbol. Luego, se "ordena hacia abajo" intercambiándolo con el hijo más prometedor (el mayor o menor, dependiendo del tipo de heap) hasta que se restaure la propiedad.
 5. Implementacion de Cola:
    - Se implementa mediante una lista enlazada, donde cada elemento (nodo) contiene un dato y un puntero al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que 
      ambas operaciones ocurren en 𝑂(1) al añadir un nuevo nodo al final o al eliminar el primer nodo.
