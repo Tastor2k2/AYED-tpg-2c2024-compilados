@@ -2,6 +2,8 @@
 
 JuegoManager::JuegoManager()
 {
+    poder_personaje = 0;
+    personaje_seleccionado = OPTIMUS;
 }
 
 void JuegoManager::mostrar_opciones_personajes()
@@ -32,7 +34,7 @@ std::string JuegoManager::obtener_personaje_string()
     return nombre;
 }
 
-PERSONAJE JuegoManager::obtener_personaje()
+Personaje JuegoManager::obtener_personaje()
 {
     return personaje_seleccionado;
 }
@@ -50,11 +52,13 @@ void JuegoManager::elegir_personaje()
 
         if (opcion != 1 && opcion != 2)
         {
-            std::cout << "Opcion no valida";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "\nOpción inválida";
         }
     }
 
-    personaje_seleccionado = static_cast<PERSONAJE>(opcion - 1);
+    personaje_seleccionado = static_cast<Personaje>(opcion - 1);
 }
 
 std::optional<Cristal> JuegoManager::obtener_cristal()
@@ -172,7 +176,7 @@ Vector<size_t> JuegoManager::obtener_pesos_vertices(Grafo mapa_combates, Camino 
     return pesos;
 }
 
-void JuegoManager::empezar_combate(OptimusPrime optimus, Megatron megatron)
+void JuegoManager::empezar_combate()
 {
     Vector<Transformer> transformers = transformers_manager.obtener_transformers_boveda();
     Grafo mapa_combates = generar_mapa_combates(transformers);

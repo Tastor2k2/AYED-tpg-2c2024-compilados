@@ -9,7 +9,7 @@
 #include "Cristal.hpp"
 #include "Transformer.hpp"
 
-enum PERSONAJE
+enum Personaje
 {
     OPTIMUS,
     MEGATRON
@@ -23,7 +23,7 @@ private:
     static const size_t PUNTAJE_EMPATE = 0;
     static const size_t COSTE_TRANSFORMACION = 10;
 
-    PERSONAJE personaje;
+    Personaje personaje;
 
     Estadisticas estadisticas_personaje{};
     size_t puntos;
@@ -35,15 +35,17 @@ private:
 
     // Pre: -
     // Post: Muestra el mapa del camino.
-    void mostrar_mapa(Camino camino, Vector<size_t> pesos);
+    void mostrar_mapa(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers);
 
     // Pre: -
     // Post: Simula los combates del personaje principal.
     void simular_combate();
 
 public:
-    Combate(PERSONAJE personaje_seleccionado, std::optional<Cristal> cristal_seleccionado);
+    Combate(Personaje personaje_seleccionado, std::optional<Cristal> cristal_seleccionado);
 
+    // Pre: -
+    // Post: Inicia el combate.
     void iniciar_combate(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers);
 };
 #endif

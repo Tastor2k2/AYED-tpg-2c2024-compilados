@@ -62,7 +62,7 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     administrar_transformers();
     break;
   case 5:
-    juego_manager.empezar_combate(optimus, megatron);
+    juego_manager.empezar_combate();
     break;
   case 7:
     continuar = false;
@@ -80,7 +80,7 @@ void ChatManager::seleccionar_personaje()
 {
   juego_manager.elegir_personaje();
 
-  PERSONAJE personaje = juego_manager.obtener_personaje();
+  Personaje personaje = juego_manager.obtener_personaje();
 
   if (personaje == OPTIMUS)
   {
@@ -171,7 +171,7 @@ void ChatManager::interactuar_megatron()
 
 void ChatManager::interactuar_personaje()
 {
-  PERSONAJE personaje = juego_manager.obtener_personaje();
+  Personaje personaje = juego_manager.obtener_personaje();
   if (personaje == OPTIMUS)
   {
     interactuar_optimus();

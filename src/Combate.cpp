@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 
-Combate::Combate(PERSONAJE personaje_seleccionado, std::optional<Cristal> cristal_seleccionado)
+Combate::Combate(Personaje personaje_seleccionado, std::optional<Cristal> cristal_seleccionado)
 {
     personaje = personaje_seleccionado;
     this->cristal_seleccionado = cristal_seleccionado;
@@ -27,23 +27,45 @@ Combate::Combate(PERSONAJE personaje_seleccionado, std::optional<Cristal> crista
     puntos = 0;
 }
 
-void Combate::mostrar_mapa(Camino camino, Vector<size_t> pesos)
+void Combate::mostrar_mapa(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers)
 {
-    std::cout << "COSTE TOTAL ENERGON:" << camino.costo_total;
-
-    std::cout << estadisticas_personaje.fuerza << std::endl;
-    std::cout << estadisticas_personaje.defensa << std::endl;
-    std::cout << estadisticas_personaje.velocidad << std::endl;
+    std::cout << "Coste total energon: [" << camino.costo_total << "]" << std::endl;
 
     size_t longitud_camino = camino.camino.tamanio();
     size_t posicion = 0;
+
     for (size_t i = 0; i < longitud_camino; i++)
     {
-        posicion = longitud_camino - 1 - i;
-        std::cout << camino.camino[posicion];
-        if (i > 0)
+        if (i != 0)
         {
-            std::cout << "<-" << pesos[posicion];
+            std::cout << "   ↑" << std::endl;
+        }
+        posicion = longitud_camino - 1 - i;
+        if (posicion - 1 < transformers.tamanio())
+        {
+            if (posicion > 0 && transformers[posicion - 1].obtener_faccion() == static_cast<Faccion>(personaje))
+            {
+                std::cout << "🦾 ";
+            }
+            else
+            {
+                std::cout << "😈 ";
+            }
+        }
+        else if (posicion - 1 == transformers.tamanio())
+        {
+            std::cout << "👹 ";
+        }
+        else
+        {
+            std::cout << "🤖 ";
+        }
+
+        std::cout << camino.camino[posicion];
+
+        if (posicion > 0)
+        {
+            std::cout << " <- (" << pesos[posicion - 1] << ")";
         }
         std::cout << std::endl;
     }
@@ -53,7 +75,7 @@ void Combate::iniciar_combate(Camino camino, Vector<size_t> pesos, Vector<Transf
 {
     std::cout << "###################################" << std::endl;
     std::cout << "COMBATE INICIADO" << std::endl;
-    mostrar_mapa(camino, pesos);
+    mostrar_mapa(camino, pesos, transformers);
     std::cout << "###################################" << std::endl;
 
     for (size_t i = 0; i < camino.camino.tamanio(); i++)
@@ -66,7 +88,7 @@ void Combate::simular_combate()
 {
 }
 
-int analisis_combate(Transformer transformer, PERSONAJE personaje)
+int analisis_combate(Transformer transformer, Personaje personaje)
 {
     //     int ventaja = 0;
     //     int ventaja_enemigo = 0;

@@ -4,8 +4,6 @@
 #include <iostream>
 #include <limits>
 #include <optional>
-#include "OptimusPrime.hpp"
-#include "Megatron.hpp"
 #include "BovedaCristales.hpp"
 #include "BovedaManager.hpp"
 #include "TransformersManager.hpp"
@@ -22,7 +20,7 @@ private:
     static const size_t PESO_ENERGON_ENEMIGO_MAX = 100;
 
     std::string nombre_usuario;
-    PERSONAJE personaje_seleccionado;
+    Personaje personaje_seleccionado;
     size_t poder_personaje;
     std::optional<Cristal> cristal_seleccionado;
 
@@ -67,7 +65,7 @@ public:
 
     // PRE: -
     // POST: Devuelve el nombre del personaje seleccionado
-    PERSONAJE obtener_personaje();
+    Personaje obtener_personaje();
 
     // PRE: -
     // POST: Muestra las opciones de la boveda y ejecuta la seleccion del usuario.
@@ -79,7 +77,7 @@ public:
 
     // Pre: -
     // Post: Comienza el combate.
-    void empezar_combate(OptimusPrime optimus, Megatron megatron);
+    void empezar_combate();
 
     // Pre: -
     // Post: Devuelve el poder del personaje principal.
