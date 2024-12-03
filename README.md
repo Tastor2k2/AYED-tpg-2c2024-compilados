@@ -77,4 +77,9 @@ O, alternativamente, con CMake, utilizando el archivo **CMakeLists.txt** present
 
 ## Aclaraciones adicionales:
 
-// ACLARACIONES ADICIONALES PARA EL CORRECTOR, COMO DECISIONES O SUPUESTOS QUE CONSIDERARON //
+El formato del archivo transformers.csv es: NOMBRE,FUERZA,DEFENSA,VELOCIDAD,FACCION,VEHICULO,TRANSFORMADO
+VEHICULO --> AUTO = 0, CAMION = 1, TANQUE = 2, AVION = 3
+FACCION --> AUTOBOT = 0 , DECEPTICON = 1
+TRANSFORMADO --> NO = 0, SI = 1
+
+El formato del archivo puntuaciones.csv es: NOMBRE_JUGADOR,PERSONAJE_ELEGIDO,PUNTUACION
