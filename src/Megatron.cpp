@@ -137,9 +137,7 @@ void Megatron::transformar()
   }
 }
 
-void Megatron::aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad)
+Estadisticas Megatron::obtener_estadisticas()
 {
-  this->fuerza += fuerza;
-  this->velocidad += velocidad;
-  this->defensa += defensa;
+  return {fuerza, defensa, velocidad};
 }

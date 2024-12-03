@@ -20,9 +20,6 @@ private:
     static const size_t PESO_ENERGON_ENEMIGO_BASE = 50;
     static const size_t PESO_ENERGON_ENEMIGO_MIN = 10;
     static const size_t PESO_ENERGON_ENEMIGO_MAX = 100;
-    static const size_t PUNTAJE_BATALLA = 50;
-    static const size_t PUNTAJE_TRANSFORMACION = 10;
-    static const size_t PUNTAJE_EMPATE = 0;
 
     std::string nombre_usuario;
     PERSONAJE personaje_seleccionado;
@@ -36,7 +33,9 @@ private:
 
     size_t calcular_peso(Transformer rival);
 
-    Grafo generar_mapa_combates();
+    Grafo generar_mapa_combates(Vector<Transformer> transformers);
+
+    Vector<size_t> obtener_pesos_vertices(Grafo mapa_combates, Camino camino);
 
 public:
     // Constructor
@@ -66,13 +65,11 @@ public:
 
     void administrar_boveda_transformers(bool &continuar);
 
-    void empezar_combate();
+    void empezar_combate(OptimusPrime optimus, Megatron megatron);
 
     size_t obtener_poder();
 
     void cambiar_poder(size_t poder);
-
-    Vector<size_t> obtener_pesos_vertices(Grafo mapa_combates, Camino camino);
 };
 
 #endif

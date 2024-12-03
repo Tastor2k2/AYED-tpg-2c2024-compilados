@@ -16,6 +16,8 @@ void BovedaTransformers::exportar_transformers()
     std::ofstream archivo("archivos_csv/transformers.csv");
     std::string linea;
     Vector<std::string> lineas;
+    Estadisticas estadisticas;
+
     if (archivo.is_open())
     {
         if (transformers.vacio())
@@ -29,10 +31,11 @@ void BovedaTransformers::exportar_transformers()
             size_t cant_transformers = transformers.tamanio();
             for (size_t i = 0; i < cant_transformers; i++)
             {
+                estadisticas = transformers[i].obtener_estadisticas();
                 archivo << transformers[i].obtener_nombre() << ","
-                        << transformers[i].obtener_fuerza() << ","
-                        << transformers[i].obtener_defensa() << ","
-                        << transformers[i].obtener_velocidad() << ","
+                        << estadisticas.fuerza << ","
+                        << estadisticas.defensa << ","
+                        << estadisticas.velocidad << ","
                         << transformers[i].obtener_faccion() << ","
                         << transformers[i].obtener_vehiculo() << ","
                         << transformers[i].esta_transformado() << "\n";

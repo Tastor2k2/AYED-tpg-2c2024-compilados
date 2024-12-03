@@ -112,9 +112,8 @@ size_t JuegoManager::calcular_peso(Transformer rival)
     return peso;
 }
 
-Grafo JuegoManager::generar_mapa_combates()
+Grafo JuegoManager::generar_mapa_combates(Vector<Transformer> transformers)
 {
-    Vector<Transformer> transformers = transformers_manager.obtener_transformers_boveda();
     size_t cantidad_transformers = transformers.tamanio();
 
     Grafo grafo_caminos(transformers.tamanio() + 2);
@@ -173,12 +172,25 @@ Vector<size_t> JuegoManager::obtener_pesos_vertices(Grafo mapa_combates, Camino 
     return pesos;
 }
 
-void JuegoManager::empezar_combate()
+void JuegoManager::empezar_combate(OptimusPrime optimus, Megatron megatron)
 {
-    Grafo mapa_combates = generar_mapa_combates();
+    Vector<Transformer> transformers = transformers_manager.obtener_transformers_boveda();
+    Grafo mapa_combates = generar_mapa_combates(transformers);
 
     mapa_combates.usar_dijkstra();
     Camino camino = mapa_combates.obtener_camino_minimo(0, transformers_manager.obtener_cantidad_transformers() + 1);
-    Vector<size_t> pesos = obtener_pesos_vertices(mapa_combates, camino);
 
+    Vector<size_t> pesos = obtener_pesos_vertices(mapa_combates, camino);
+    Vector<Transformer> transformer_camino;
+
+    for (size_t i = 0; i < camino.camino.tamanio(); i++)
+    {
+        if (camino.camino[i] != 0 && camino.camino[i] != transformers_manager.obtener_cantidad_transformers() + 1)
+        {
+            transformer_camino.alta(transformers[camino.camino[i] - 1]);
+        }
+    }
+
+    Combate combate(personaje_seleccionado, cristal_seleccionado);
+    combate.iniciar_combate(camino, pesos, transformer_camino);
 }

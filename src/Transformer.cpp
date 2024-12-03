@@ -140,21 +140,6 @@ std::string Transformer::obtener_nombre()
     return nombre;
 }
 
-size_t Transformer::obtener_fuerza()
-{
-    return fuerza;
-}
-
-size_t Transformer::obtener_defensa()
-{
-    return defensa;
-}
-
-size_t Transformer::obtener_velocidad()
-{
-    return velocidad;
-}
-
 Faccion Transformer::obtener_faccion()
 {
     return faccion;
@@ -182,11 +167,12 @@ bool Transformer::esta_transformado()
 
 void Transformer::mostrar_detalle()
 {
+    Estadisticas estadisticas = obtener_estadisticas();
     std::cout
         << "\nNombre: " << obtener_nombre()
-        << "\nFuerza: " << obtener_fuerza()
-        << "\nDefensa: " << obtener_defensa()
-        << "\nVelocidad: " << obtener_velocidad()
+        << "\nFuerza: " << estadisticas.fuerza
+        << "\nDefensa: " << estadisticas.defensa
+        << "\nVelocidad: " << estadisticas.velocidad
         << "\nFaccion: " << obtener_cadena_faccion()
         << "\nVehiculo: " << obtener_cadena_vehiculo()
         << "\nTransformado: " << (esta_transformado() ? "SI" : "NO");
@@ -195,4 +181,9 @@ void Transformer::mostrar_detalle()
 size_t Transformer::obtener_poder()
 {
     return velocidad + fuerza + defensa;
+}
+
+Estadisticas Transformer::obtener_estadisticas()
+{
+    return {fuerza, defensa, velocidad};
 }

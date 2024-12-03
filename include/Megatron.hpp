@@ -69,11 +69,15 @@ public:
   // POST: Cambia la intencion de Megatron al valor del parametro recibido.
   void cambiar_intencion(std::string intencion);
 
+  // PRE: -
+  // POST: Devuelve el poder de Megatron.
   size_t obtener_poder();
 
-  void transformar();
+  // PRE: -
+  // POST: Devuelve las estadisticas del cristal.
+  Estadisticas obtener_estadisticas();
 
-  void aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad);
+  void transformar();
 };
 
 #endif

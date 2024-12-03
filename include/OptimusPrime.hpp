@@ -70,7 +70,7 @@ public:
 
   void transformar();
 
-  void aumentar_estadísticas(size_t fuerza, size_t defensa, size_t velocidad);
+  Estadisticas obtener_estadisticas();
 };
 
 #endif

@@ -97,7 +97,6 @@ void BovedaManager::administrar_boveda(bool &continuar, std::optional<Cristal> &
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
-    break;
   }
 }
 

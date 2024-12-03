@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
 class ExcepcionTransformer : public std::runtime_error
 {
     // Excepcion para errores dentro de la clase transformer.
@@ -13,6 +14,13 @@ public:
     ExcepcionTransformer(std::string mensaje) : runtime_error(mensaje) {}
 
     ExcepcionTransformer() : runtime_error("") {}
+};
+
+struct Estadisticas
+{
+    size_t fuerza;
+    size_t defensa;
+    size_t velocidad;
 };
 
 enum Faccion
@@ -74,17 +82,9 @@ public:
     // Post: Getter del nombre del transformer.
     std::string obtener_nombre();
 
-    // Pre: -
-    // Post: Getter del atributo fuerza del transformer.
-    size_t obtener_fuerza();
-
-    // Pre: -
-    // Post: Getter del atributo defensa del transformer.
-    size_t obtener_defensa();
-
-    // Pre: -
-    // Post: Getter del atributo velocidad del transformer.
-    size_t obtener_velocidad();
+    // PRE: -
+    // POST: Devuelve las estadisticas del transformer.
+    Estadisticas obtener_estadisticas();
 
     // Pre: -
     // Post: Getter de la faccion del transformer.

@@ -62,7 +62,7 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     administrar_transformers();
     break;
   case 5:
-    juego_manager.empezar_combate();
+    juego_manager.empezar_combate(optimus, megatron);
     break;
   case 7:
     continuar = false;
@@ -71,7 +71,6 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
-    break;
   }
 
   opcion = -1;
