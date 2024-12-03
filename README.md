@@ -18,7 +18,7 @@
 ## Entregables:
 
 1. [Informe de complejidad algorítmica](https://docs.google.com/document/d/13TDQOgicwrRM_FvfyqVqIjJZ4llM3OECTTcOZllaljE/edit?tab=t.0)
-2. [Video de demostración del programa](https://www.enlaceaca.com/)
+2. [Video de demostración del programa](https://drive.google.com/file/d/1fhaSFGdZIu6tWHRDEeAqXut_2VbfxZha/view?usp=sharing)
 
 ## Justificación de las estructuras de datos y algoritmos
 
