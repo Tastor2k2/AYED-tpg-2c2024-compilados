@@ -38,14 +38,16 @@ void TransformersManager::aniadir_transformer()
   size_t velocidad;
   std::cin >> velocidad;
 
-  std::cout << "\nIngrese la faccion: ";
-  std::cout << "\n0- Autobot";
-  std::cout << "\n1- Decepticon";
-  std::cout << "\n- ";
-  // implementar loop
+  int faccion_num = -1;
+  while (faccion_num < 0 || faccion_num > 1)
+  {
+    std::cout << "\nIngrese la faccion: ";
+    std::cout << "\n0- Autobot";
+    std::cout << "\n1- Decepticon";
+    std::cout << "\n- ";
+    std::cin >> faccion_num;
+  }
 
-  size_t faccion_num;
-  std::cin >> faccion_num;
   Faccion faccion = static_cast<Faccion>(faccion_num);
 
   std::cout << faccion;
@@ -55,7 +57,6 @@ void TransformersManager::aniadir_transformer()
   std::cout << "\nIngrese el vehiculo:";
   if (faccion == AUTOBOT)
   {
-
     // implementar loop
     std::cout << "\n0- Auto";
     std::cout << "\n1- Camion";
