@@ -74,7 +74,8 @@ void Combate::conectar_vertices(size_t cantidad_transformers, Grafo grafo_transf
     size_t peso_arista;
 
     if (cantidad_transformers == 3)
-    { // caso especia, solo 3 transformers.
+    {
+        // caso especia, solo 3 transformers.
         peso_arista = calcular_energon(transformers[0]);
         grafo_transformers.agregar_arista(0, 1, static_cast<int>(peso_arista));
         // FALTA CALCULAR EL PESO DEL TRANSFORMER RIVAL MEGATRON U OPTIMUS

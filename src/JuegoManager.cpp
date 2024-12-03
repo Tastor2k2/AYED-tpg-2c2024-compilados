@@ -84,9 +84,88 @@ void JuegoManager::cambiar_poder(size_t poder)
     this->poder_personaje = poder;
 }
 
-void JuegoManager::empezar_combate(Vector<Transformer> transformers)
+void JuegoManager::administrar_boveda_transformers(bool &continuar)
 {
-    size_t cantidad_transformers = transformers_manager.obtener_cantidad_transformers();
-    Combate combate(personaje_seleccionado, poder_personaje, cantidad_transformers);
-    combate.crear_grafo(cantidad_transformers, poder_personaje, transformers);
+    transformers_manager.administrar_transformers(continuar);
+}
+
+size_t JuegoManager::calcular_peso(Transformer rival)
+{
+    size_t peso;
+    if (rival.obtener_faccion() == static_cast<Faccion>(personaje_seleccionado))
+    {
+        peso = PESO_ENERGON_ALIADO;
+    }
+    else
+    {
+        peso = PESO_ENERGON_ENEMIGO_BASE + (rival.obtener_poder()) - (poder_personaje);
+        if (peso < PESO_ENERGON_ENEMIGO_MIN)
+        {
+            peso = PESO_ENERGON_ENEMIGO_MIN;
+        }
+        else if (peso > PESO_ENERGON_ENEMIGO_MAX)
+        {
+            peso = PESO_ENERGON_ENEMIGO_MAX;
+        }
+    }
+
+    return peso;
+}
+
+Grafo JuegoManager::generar_mapa_combates()
+{
+    Vector<Transformer> transformers = transformers_manager.obtener_transformers_boveda();
+    size_t cantidad_transformers = transformers.tamanio();
+
+    Grafo grafo_caminos(transformers.tamanio() + 2);
+
+    size_t filas = (cantidad_transformers + 2) / 3;
+
+    // Conectar el personaje principal con todos los transformers en la primera fila
+    size_t primera_fila = std::min(size_t(3), cantidad_transformers);
+    std::cout << "Primera fila: " << primera_fila << "\n";
+    for (size_t i = 0; i < primera_fila; i++)
+    {
+        std::cout << "Conecto: " << 0 << "con" << i + 1 << "\n";
+
+        grafo_caminos.agregar_arista(0, i + 1, static_cast<int>(calcular_peso(transformers[i])));
+    }
+
+    size_t inicio_actual, inicio_siguiente, tam_actual, tam_siguiente, origen, destino;
+
+    // Conectar cada transformer con todos los transformers de la siguiente fila
+    for (size_t fila = 0; fila < filas - 1; fila++)
+    {
+        inicio_actual = fila * 3;
+        inicio_siguiente = (fila + 1) * 3;
+        tam_actual = std::min(cantidad_transformers - inicio_actual, size_t(3));
+        tam_siguiente = std::min(cantidad_transformers - inicio_siguiente, size_t(3));
+
+        for (size_t col = 0; col < tam_actual; col++)
+        {
+            origen = inicio_actual + col + 1;
+            for (size_t next_col = 0; next_col < tam_siguiente; next_col++)
+            {
+                destino = inicio_siguiente + next_col + 1;
+                grafo_caminos.agregar_arista(origen, destino, static_cast<int>(calcular_peso(transformers[destino - 1])));
+            }
+        }
+    }
+
+    // Conectar el jefe final con todos los transformers de la última fila
+    size_t inicio_ultima_fila = (filas - 1) * 3;
+    size_t tam_ultima_fila = std::min(cantidad_transformers - inicio_ultima_fila, size_t(3));
+    for (size_t i = 0; i < tam_ultima_fila; i++)
+    {
+        size_t nodo_ultima_fila = inicio_ultima_fila + i + 1;
+        grafo_caminos.agregar_arista(nodo_ultima_fila, cantidad_transformers + 1, 0);
+    }
+
+    return grafo_caminos;
+}
+
+void JuegoManager::empezar_combate()
+{
+    Grafo mapa_combates = generar_mapa_combates();
+    std::cout << "Matriz de Adyacencia:\n";
 }

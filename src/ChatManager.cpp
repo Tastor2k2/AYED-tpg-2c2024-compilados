@@ -62,7 +62,7 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
     administrar_transformers();
     break;
   case 5:
-    juego_manager.empezar_combate(transformers_manager.obtener_transformers_boveda());
+    juego_manager.empezar_combate();
     break;
   case 7:
     continuar = false;
@@ -204,7 +204,7 @@ void ChatManager::administrar_transformers()
   std::cout << "\n|Administrar Transformers|";
   while (continuar)
   {
-    transformers_manager.administrar_transformers(continuar);
+    juego_manager.administrar_boveda_transformers(continuar);
   }
 }
 
