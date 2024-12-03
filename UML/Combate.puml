@@ -1,0 +1,29 @@
+@startuml
+
+class Combate {
+}
+class Grafo {
+}
+class Vector<T> {
+}
+class OptimusPrime{
+}
+class Megatron{
+}
+class Cristal{
+}
+class Transformer{
+}
+class GeneradorAleatorio{
+}
+
+Combate ..> Grafo
+Combate ..> Vector
+Combate ..> OptimusPrime
+Combate ..> Megatron
+Combate ..> Cristal
+Combate ..> Transformer
+Combate ..> GeneradorAleatorio
+
+
+@enduml
