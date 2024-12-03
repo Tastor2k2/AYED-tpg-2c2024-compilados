@@ -21,6 +21,13 @@ struct Estadisticas
     size_t fuerza;
     size_t defensa;
     size_t velocidad;
+
+    void operator+=(const Estadisticas &otra)
+    {
+        fuerza = fuerza + otra.fuerza;
+        defensa = defensa + otra.defensa;
+        velocidad = velocidad + otra.velocidad;
+    }
 };
 
 enum Faccion

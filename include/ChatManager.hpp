@@ -10,6 +10,38 @@
 class ChatManager
 {
 private:
+  enum OpcionesPrincipales
+  {
+    SELECCIONAR_PERSONAJE,
+    INTERACTUAR_PERSONAJE,
+    ADMINISTRAR_BOVEDA,
+    ADMINISTRAR_TRANSFORMERS,
+    INICIAR_BATALLA,
+    TABLA_CLASIFICACION,
+    SALIR
+  };
+
+  enum OpcionesInteraccion
+  {
+    CHATEAR,
+    PEDIR_CONSEJO_FUSION,
+    CAMBIAR_ANIMO_INTENCION,
+  };
+
+  enum Animo
+  {
+    SERENO,
+    DETERMINADO,
+    ENFURECIDO
+  };
+
+  enum Intencion
+  {
+    DESPRECIO,
+    MANIPULACION,
+    AMENAZA
+  };
+
   OptimusPrime optimus;
   Megatron megatron;
   JuegoManager juego_manager;

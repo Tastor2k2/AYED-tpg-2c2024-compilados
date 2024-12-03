@@ -9,6 +9,16 @@
 class TransformersManager
 {
 private:
+    enum OpcionesBoveda
+    {
+        ANIADIR_TRANSFORMER,
+        MOSTRAR_TRANSFORMERS,
+        BUSCAR_TRANSFORMER,
+        ELIMINAR_TRANSFORMER,
+        TRANSFORMAR,
+        SALIR
+    };
+
     // Opcion seleccionada por el usuario en el chat
     int opcion;
     BovedaTransformers boveda_transformers;
@@ -42,7 +52,7 @@ public:
     void administrar_transformers(bool &continuar);
 
     // PRE: -
-    // POST: Devuelve la cantidad de transformers. 
+    // POST: Devuelve la cantidad de transformers.
     size_t obtener_cantidad_transformers();
 
     // PRE: -

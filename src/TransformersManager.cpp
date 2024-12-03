@@ -161,24 +161,24 @@ void TransformersManager::administrar_transformers(bool &continuar)
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case ANIADIR_TRANSFORMER:
     aniadir_transformer();
     break;
-  case 2:
+  case MOSTRAR_TRANSFORMERS:
     boveda_transformers.mostrar_transformers();
     break;
-  case 3:
+  case BUSCAR_TRANSFORMER:
     buscar_transformer();
     break;
-  case 4:
+  case ELIMINAR_TRANSFORMER:
     eliminar_transformer();
     break;
-  case 5:
+  case TRANSFORMAR:
     transformar();
     break;
-  case 6:
+  case SALIR:
     continuar = false;
     break;
   default:

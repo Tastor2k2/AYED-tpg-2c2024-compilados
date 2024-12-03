@@ -94,12 +94,12 @@ void Combate::simular_combate(size_t posicion, Vector<Transformer> transformers)
     std::string nombre_enemigo = "";
     std::string nombre_transformer = "";
     Estadisticas estadisticas_enemigo = {0, 0, 0};
-    Estadisticas estadisticas_jugador = {0, 0, 0};
 
     size_t rounds = 1;
 
     bool es_optimus = personaje == OPTIMUS;
     bool es_aliado = false;
+    bool es_final = false;
 
     if (posicion - 1 < transformers.tamanio())
     {
@@ -108,38 +108,27 @@ void Combate::simular_combate(size_t posicion, Vector<Transformer> transformers)
         nombre_enemigo = transformer.obtener_nombre();
         estadisticas_enemigo = transformer.obtener_estadisticas();
     }
-    else if (es_optimus)
-    {
-        nombre_enemigo = megatron.obtener_personaje_string();
-        estadisticas_enemigo = megatron.obtener_estadisticas();
-        rounds = 3;
-        es_aliado = false;
-    }
     else
     {
-        nombre_enemigo = optimus.obtener_personaje_string();
-        estadisticas_enemigo = optimus.obtener_estadisticas();
+        nombre_enemigo = es_optimus ? megatron.obtener_personaje_string() : optimus.obtener_personaje_string();
+        estadisticas_enemigo = es_optimus ? megatron.obtener_estadisticas() : optimus.obtener_estadisticas();
+
         rounds = 3;
         es_aliado = false;
+        es_final = true;
     }
 
-    if (es_optimus)
-    {
-        nombre_transformer = optimus.obtener_personaje_string();
-        estadisticas_jugador = optimus.obtener_estadisticas();
-    }
-    else
-    {
-        nombre_transformer = megatron.obtener_personaje_string();
-        estadisticas_jugador = megatron.obtener_estadisticas();
-    }
+    nombre_transformer = es_optimus ? optimus.obtener_personaje_string() : megatron.obtener_personaje_string();
+    estadisticas_personaje = es_optimus ? optimus.obtener_estadisticas() : megatron.obtener_estadisticas();
 
-    if (rounds > 1)
+    if (es_final)
     {
         std::cout << "---------- " << rounds << " ROUNDS" << " ---------------" << std::endl;
     }
     std::cout << "-----------------------------------" << std::endl;
     std::cout << nombre_transformer << " VS " << nombre_enemigo << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
+    std::cout << "Puntaje: |" << puntos << "|" << std::endl;
     std::cout << "-----------------------------------" << std::endl;
     std::cout << "***********************************" << std::endl;
     std::cout << "Fuerza: " << estadisticas_enemigo.fuerza << std::endl;
@@ -159,47 +148,20 @@ void Combate::simular_combate(size_t posicion, Vector<Transformer> transformers)
     }
     else
     {
+
+        transformar_jugador(es_optimus);
+
         for (size_t i = 0; i < rounds; i++)
         {
-            int resultado = analisis_combate(estadisticas_jugador, estadisticas_enemigo);
+            if (es_final)
+            {
+                transformar_enemigo(es_optimus, estadisticas_enemigo);
+            }
 
-            std::cout << "-----------------------------------" << std::endl;
-            if (resultado == 1)
-            {
-                puntos += PUNTAJE_BATALLA;
-                if (rounds > 1)
-                {
-                    std::cout << " 🏆 GANASTE EL ROUND 🏆 " << std::endl;
-                }
-                else
-                {
-                    std::cout << " 🏆 GANASTE LA PELEA 🏆 " << std::endl;
-                }
-            }
-            else if (resultado == -1)
-            {
-                if (PUNTAJE_BATALLA > puntos)
-                {
-                    puntos = 0;
-                }
-                else
-                {
-                    puntos = puntos - PUNTAJE_BATALLA;
-                }
+            int resultado = analisis_combate(estadisticas_enemigo);
 
-                if (rounds > 1)
-                {
-                    std::cout << "😵 PERDISTE EL ROUND 😵" << std::endl;
-                }
-                else
-                {
-                    std::cout << "😵 PERDISTE LA PELEA 😵" << std::endl;
-                }
-            }
-            else
-            {
-                std::cout << "🤝 EMPATE 🤝" << std::endl;
-            }
+            mostrar_resultado_combate(resultado, es_final);
+
             std::cout << "-----------------------------------" << std::endl;
             std::cin.get();
         }
@@ -207,34 +169,107 @@ void Combate::simular_combate(size_t posicion, Vector<Transformer> transformers)
     std::cout << "###################################" << std::endl;
 }
 
-int Combate::analisis_combate(Estadisticas estadisticas_jugador, Estadisticas estadisticas_enemigo)
+void Combate::mostrar_resultado_combate(int resultado, bool es_final)
+{
+    std::string mensaje = "🤝 EMPATE 🤝";
+    std::cout << "-----------------------------------" << std::endl;
+    if (resultado == 1)
+    {
+        puntos += PUNTAJE_BATALLA;
+
+        mensaje = es_final ? " 🏆 GANASTE EL ROUND 🏆 " : " 🏆 GANASTE LA PELEA 🏆 ";
+    }
+    else if (resultado == -1)
+    {
+        puntos = PUNTAJE_BATALLA > puntos ? 0 : puntos - PUNTAJE_BATALLA;
+        mensaje = es_final ? " 😵 PERDISTE EL ROUND 😵 " : " 😵 PERDISTE LA PELEA 😵 ";
+    }
+
+    std::cout << mensaje << std::endl;
+}
+
+void Combate::transformar_enemigo(bool es_optimus, Estadisticas &estadisticas_enemigo)
+{
+    bool transformar = generador_aleatorio.generar_chance_porcentual(50);
+    if (transformar)
+    {
+        es_optimus ? megatron.transformar() : optimus.transformar();
+        estadisticas_enemigo = es_optimus ? megatron.obtener_estadisticas() : optimus.obtener_estadisticas();
+
+        std::cout << "*** *** *** *** *** *** *** *** ***" << std::endl;
+        std::cout << " 🤖 EL ENEMIGO SE TRANSFORMO! 🤖 " << std::endl;
+        std::cout << "*** *** *** *** *** *** *** *** ***" << std::endl;
+    }
+}
+
+void Combate::transformar_jugador(bool es_optimus)
+{
+    int opcion = -1;
+
+    while (opcion != 1 && opcion != 2)
+    {
+        std::cout << "-----------------------------------" << std::endl;
+        std::cout << "Desea transformar? (Coste: " << COSTE_TRANSFORMACION << ")" << std::endl;
+        std::cout << "1- TRANSFORMAR!" << std::endl;
+        std::cout << "2- No" << std::endl;
+        std::cout << "-----------------------------------" << std::endl;
+        std::cout << "- ";
+        std::cin >> opcion;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+    if (opcion == 1)
+    {
+        if (puntos < COSTE_TRANSFORMACION)
+        {
+            std::cout << "-----------------------------------" << std::endl;
+            std::cout << "No tienes suficiente energon para transformar" << std::endl;
+            std::cout << "-----------------------------------" << std::endl;
+            opcion = 2;
+        }
+        else
+        {
+            puntos -= COSTE_TRANSFORMACION;
+        }
+
+        es_optimus ? optimus.transformar() : megatron.transformar();
+        estadisticas_personaje = es_optimus ? optimus.obtener_estadisticas() : megatron.obtener_estadisticas();
+
+        if (cristal_seleccionado.has_value())
+        {
+            estadisticas_personaje += cristal_seleccionado.value().obtener_estadisticas();
+        }
+    }
+}
+
+int Combate::analisis_combate(Estadisticas estadisticas_enemigo)
 {
     size_t contador_jugador = 0;
     size_t contador_enemigo = 0;
 
-    if (estadisticas_jugador.fuerza > estadisticas_enemigo.fuerza)
+    if (estadisticas_personaje.fuerza > estadisticas_enemigo.fuerza)
     {
         contador_jugador++;
     }
-    else if (estadisticas_jugador.fuerza < estadisticas_enemigo.fuerza)
+    else if (estadisticas_personaje.fuerza < estadisticas_enemigo.fuerza)
     {
         contador_enemigo++;
     }
 
-    if (estadisticas_jugador.velocidad > estadisticas_enemigo.velocidad)
+    if (estadisticas_personaje.velocidad > estadisticas_enemigo.velocidad)
     {
         contador_jugador++;
     }
-    else if (estadisticas_jugador.velocidad < estadisticas_enemigo.velocidad)
+    else if (estadisticas_personaje.velocidad < estadisticas_enemigo.velocidad)
     {
         contador_enemigo++;
     }
 
-    if (estadisticas_jugador.defensa > estadisticas_enemigo.defensa)
+    if (estadisticas_personaje.defensa > estadisticas_enemigo.defensa)
     {
         contador_jugador++;
     }
-    else if (estadisticas_jugador.defensa < estadisticas_enemigo.defensa)
+    else if (estadisticas_personaje.defensa < estadisticas_enemigo.defensa)
     {
         contador_enemigo++;
     }

@@ -47,27 +47,27 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
 
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case SELECCIONAR_PERSONAJE:
     seleccionar_personaje();
     break;
-  case 2:
+  case INTERACTUAR_PERSONAJE:
     interactuar_personaje();
     break;
-  case 3:
+  case ADMINISTRAR_BOVEDA:
     administrar_boveda();
     break;
-  case 4:
+  case ADMINISTRAR_TRANSFORMERS:
     administrar_transformers();
     break;
-  case 5:
+  case INICIAR_BATALLA:
     juego_manager.empezar_combate();
     break;
-  case 6:
+  case TABLA_CLASIFICACION:
     juego_manager.mostrar_puntajes();
     break;
-  case 7:
+  case SALIR:
     continuar = false;
     break;
   default:
@@ -124,15 +124,15 @@ void ChatManager::interactuar_optimus()
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case CHATEAR:
     iniciar_chat_optimus();
     break;
-  case 2:
+  case PEDIR_CONSEJO_FUSION:
     optimus.sugerir_fusion();
     break;
-  case 3:
+  case CAMBIAR_ANIMO_INTENCION:
     cambiar_animo_optimus();
     break;
   default:
@@ -154,15 +154,15 @@ void ChatManager::interactuar_megatron()
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case CHATEAR:
     iniciar_chat_megatron();
     break;
-  case 2:
+  case PEDIR_CONSEJO_FUSION:
     megatron.sugerir_fusion();
     break;
-  case 3:
+  case CAMBIAR_ANIMO_INTENCION:
     cambiar_intencion_megatron();
     break;
   default:
@@ -268,15 +268,15 @@ void ChatManager::cambiar_animo_optimus()
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case SERENO:
     animo = "sereno";
     break;
-  case 2:
+  case DETERMINADO:
     animo = "determinado";
     break;
-  case 3:
+  case ENFURECIDO:
     animo = "enfurecido";
     break;
   default:
@@ -303,15 +303,15 @@ void ChatManager::cambiar_intencion_megatron()
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case DESPRECIO:
     intencion = "desprecio";
     break;
-  case 2:
+  case MANIPULACION:
     intencion = "manipulacion";
     break;
-  case 3:
+  case AMENAZA:
     intencion = "amenaza";
     break;
   default:

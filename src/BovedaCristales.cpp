@@ -21,16 +21,16 @@ void BovedaCristales::mostrar_cristal(size_t indice, Cristal cristal)
   std::string rareza_texto;
   switch (cristal.obtener_rareza())
   {
-  case 0:
+  case COMUN:
     rareza_texto = "Comun";
     break;
-  case 1:
+  case RARO:
     rareza_texto = "Raro";
     break;
-  case 2:
-    rareza_texto = "Unico";
+  case EPICO:
+    rareza_texto = "Epico";
     break;
-  case 3:
+  case LEGENDARIO:
     rareza_texto = "Legendario";
     break;
   }
@@ -122,17 +122,19 @@ void BovedaCristales::mostrar_cristal_max_poder()
   {
     throw ExcepcionBovedaCristales("La bóveda está vacía");
   }
-  Rareza rareza_max_actual = COMUN;
-  Rareza rareza_actual;
-  size_t posicion_rareza_max = 0;
-  for (size_t i = 0; i < cristales.tamanio(); i++)
+
+  size_t posicion_max_poder = 0;
+  size_t poder_max = cristales[0].obtener_poder();
+
+  for (size_t i = 1; i < cristales.tamanio(); i++)
   {
-    rareza_actual = cristales[i].obtener_rareza();
-    if (rareza_max_actual < rareza_actual)
+    size_t poder_actual = cristales[i].obtener_poder();
+    if (poder_actual > poder_max)
     {
-      rareza_max_actual = rareza_actual;
-      posicion_rareza_max = i;
+      poder_max = poder_actual;
+      posicion_max_poder = i;
     }
   }
-  mostrar_cristal(posicion_rareza_max, cristales[posicion_rareza_max]);
+
+  mostrar_cristal(posicion_max_poder, cristales[posicion_max_poder]);
 }

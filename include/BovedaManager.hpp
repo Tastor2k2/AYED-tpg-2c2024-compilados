@@ -10,6 +10,18 @@
 class BovedaManager
 {
 private:
+    enum OpcionesGenerales
+    {
+        ANIADIR_CRISTAL_COMUN,
+        MOSTRAR_CRISTALES,
+        FUSIONAR_CRISTALES,
+        ELIMINAR_CRISTAL,
+        EXPORTAR_CRISTALES,
+        SELECCIONAR_CRISTAL,
+        MOSTRAR_CRISTAL_MAX_PODER,
+        SALIR
+    };
+
     // Cristal para insertar en la boveda por defecto
     static const Cristal CRISTAL_COMUN;
 
@@ -43,6 +55,10 @@ private:
     // PRE: -
     // POST: Selecciona un cristal de la boveda y lo asigna al cristal recibido por parametros.
     void seleccionar_cristal(std::optional<Cristal> &cristal_seleccionado);
+
+    // PRE: -
+    // POST: Muestra el cristal con mayor poder de la boveda si es que tiene al menos uno.
+    void mostrar_cristal_max_poder();
 
 public:
     // Constructor

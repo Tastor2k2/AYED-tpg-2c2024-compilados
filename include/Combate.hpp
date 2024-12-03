@@ -8,6 +8,7 @@
 #include "Megatron.hpp"
 #include "Cristal.hpp"
 #include "Transformer.hpp"
+#include "GeneradorAleatorio.hpp"
 
 enum Personaje
 {
@@ -33,6 +34,8 @@ private:
 
     std::optional<Cristal> cristal_seleccionado;
 
+    GeneradorAleatorio generador_aleatorio;
+
     // Pre: -
     // Post: Muestra el mapa del camino.
     void mostrar_mapa(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers);
@@ -41,7 +44,21 @@ private:
     // Post: Simula los combates del personaje principal.
     void simular_combate(size_t posicion, Vector<Transformer> transformers);
 
-    int analisis_combate(Estadisticas estadisticas_jugador, Estadisticas estadisticas_enemigo);
+    // Pre: -
+    // Post: Analiza el combate entre jugador y enemigo, devuelve el resultado (-1 si perdio, 0 empate, 1 gano).
+    int analisis_combate(Estadisticas estadisticas_enemigo);
+
+    // Pre: -
+    // Post: Muestra opcion y transforma al personaje si el jugador lo desea y cuenta con puntos.
+    void transformar_jugador(bool es_optimus);
+
+    // Pre: -
+    // Post: De forma aleatoria transforma al jefe final.
+    void transformar_enemigo(bool es_optimus, Estadisticas &estadisticas_enemigo);
+
+    // Pre: -
+    // Post: Muestra el resultado del combate.
+    void mostrar_resultado_combate(int resultado, bool es_final);
 
 public:
     Combate(Personaje personaje_seleccionado, std::optional<Cristal> cristal_seleccionado);

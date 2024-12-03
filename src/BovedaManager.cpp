@@ -44,16 +44,16 @@ void BovedaManager::mostrar_cristal_obtenido(Cristal cristal)
   std::cout << "\nCristal obtenido: ";
   switch (cristal.obtener_rareza())
   {
-  case 0:
+  case COMUN:
     std::cout << "Comun" << std::endl;
     break;
-  case 1:
+  case RARO:
     std::cout << "Raro" << std::endl;
     break;
-  case 2:
-    std::cout << "Unico" << std::endl;
+  case EPICO:
+    std::cout << "Epico" << std::endl;
     break;
-  case 3:
+  case LEGENDARIO:
     std::cout << "Legendario" << std::endl;
     break;
   }
@@ -68,35 +68,51 @@ void BovedaManager::administrar_boveda(bool &continuar, std::optional<Cristal> &
   std::cin >> opcion;
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  switch (opcion)
+  switch (opcion - 1)
   {
-  case 1:
+  case ANIADIR_CRISTAL_COMUN:
     aniadir_cristal_comun();
     break;
-  case 2:
+  case MOSTRAR_CRISTALES:
     boveda.mostrar_cristales();
     break;
-  case 3:
+  case FUSIONAR_CRISTALES:
     fusionar_cristales();
     break;
-  case 4:
+  case ELIMINAR_CRISTAL:
     eliminar_cristal();
     break;
-  case 5:
+  case EXPORTAR_CRISTALES:
     exportar_cristales();
     break;
-  case 6:
+  case SELECCIONAR_CRISTAL:
     seleccionar_cristal(cristal_seleccionado);
     break;
-  case 7:
+  case MOSTRAR_CRISTAL_MAX_PODER:
     boveda.mostrar_cristal_max_poder();
-  case 8:
+    break;
+  case SALIR:
     continuar = false;
     break;
   default:
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "\nOpción inválida";
+  }
+}
+
+void BovedaManager::mostrar_cristal_max_poder()
+{
+
+  if (boveda.cantidad_cristales() == 0)
+  {
+    std::cout << "\n--------------------------------";
+    std::cout << "\nNo hay cristales para seleccionar";
+    std::cout << "\n--------------------------------";
+  }
+  else
+  {
+    boveda.mostrar_cristal_max_poder();
   }
 }
 
