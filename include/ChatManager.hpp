@@ -5,7 +5,6 @@
 #include <limits>
 #include "OptimusPrime.hpp"
 #include "Megatron.hpp"
-#include "TransformersManager.hpp"
 #include "JuegoManager.hpp"
 
 class ChatManager
@@ -13,7 +12,6 @@ class ChatManager
 private:
   OptimusPrime optimus;
   Megatron megatron;
-  TransformersManager transformers_manager;
   JuegoManager juego_manager;
 
   // PRE: -

@@ -54,14 +54,15 @@ void TransformersManager::aniadir_transformer()
   bool es_autobot = faccion == AUTOBOT;
   Vehiculo vehiculo;
   int vehiculo_num = -1;
-  while (vehiculo_num < 0 || vehiculo_num > 1) {
+  while (vehiculo_num < 0 || vehiculo_num > 1)
+  {
     std::cout << "\nIngrese el vehiculo:";
     if (es_autobot)
     {
-        std::cout << "\n0- Auto";
-        std::cout << "\n1- Camion";
-        std::cout << "\n- ";
-        std::cin >> vehiculo_num;
+      std::cout << "\n0- Auto";
+      std::cout << "\n1- Camion";
+      std::cout << "\n- ";
+      std::cin >> vehiculo_num;
     }
     else
     {

@@ -27,7 +27,7 @@ Vector<size_t> Combate::obtener_pesos_aristas(Grafo grafo, Vector<size_t> camino
     {
         elemento = camino[i];
         elemento_2 = camino[i + 1];
-        pesos.alta(grafo.peso_entre_aristas(elemento, elemento_2));
+        pesos.alta(grafo.peso_entre_vertices(elemento, elemento_2));
     }
 
     return pesos;

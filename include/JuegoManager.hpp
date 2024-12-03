@@ -24,10 +24,11 @@ private:
     static const size_t PUNTAJE_TRANSFORMACION = 10;
     static const size_t PUNTAJE_EMPATE = 0;
 
-    size_t poder_personaje;
     std::string nombre_usuario;
     PERSONAJE personaje_seleccionado;
+    size_t poder_personaje;
     std::optional<Cristal> cristal_seleccionado;
+
     BovedaManager boveda_manager;
     TransformersManager transformers_manager;
 
@@ -70,6 +71,8 @@ public:
     size_t obtener_poder();
 
     void cambiar_poder(size_t poder);
+
+    Vector<size_t> obtener_pesos_vertices(Grafo mapa_combates, Camino camino);
 };
 
 #endif

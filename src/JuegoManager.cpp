@@ -123,11 +123,8 @@ Grafo JuegoManager::generar_mapa_combates()
 
     // Conectar el personaje principal con todos los transformers en la primera fila
     size_t primera_fila = std::min(size_t(3), cantidad_transformers);
-    std::cout << "Primera fila: " << primera_fila << "\n";
     for (size_t i = 0; i < primera_fila; i++)
     {
-        std::cout << "Conecto: " << 0 << "con" << i + 1 << "\n";
-
         grafo_caminos.agregar_arista(0, i + 1, static_cast<int>(calcular_peso(transformers[i])));
     }
 
@@ -164,8 +161,24 @@ Grafo JuegoManager::generar_mapa_combates()
     return grafo_caminos;
 }
 
+Vector<size_t> JuegoManager::obtener_pesos_vertices(Grafo mapa_combates, Camino camino)
+{
+    Vector<size_t> pesos;
+
+    for (size_t i = 0; i < camino.camino.tamanio() - 1; i++)
+    {
+        pesos.alta(mapa_combates.peso_entre_vertices(camino.camino[i], camino.camino[i + 1]));
+    }
+
+    return pesos;
+}
+
 void JuegoManager::empezar_combate()
 {
     Grafo mapa_combates = generar_mapa_combates();
-    std::cout << "Matriz de Adyacencia:\n";
+
+    mapa_combates.usar_dijkstra();
+    Camino camino = mapa_combates.obtener_camino_minimo(0, transformers_manager.obtener_cantidad_transformers() + 1);
+    Vector<size_t> pesos = obtener_pesos_vertices(mapa_combates, camino);
+
 }

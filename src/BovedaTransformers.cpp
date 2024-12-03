@@ -9,7 +9,6 @@ BovedaTransformers::BovedaTransformers()
 
 BovedaTransformers::~BovedaTransformers()
 {
-    exportar_transformers();
 }
 
 void BovedaTransformers::exportar_transformers()
@@ -79,6 +78,7 @@ void BovedaTransformers::almacenar_transformer(Transformer transformer)
         std::cout << "\nTransformer actualizado";
         transformers[static_cast<size_t>(posicion)] = transformer;
     }
+    exportar_transformers();
     std::cout << "\n--------------------------------";
 }
 
@@ -136,7 +136,9 @@ int BovedaTransformers::obtener_posicion_transformer(std::string nombre)
 
 Transformer BovedaTransformers::eliminar_transformer(size_t posicion)
 {
-    return transformers.baja(posicion);
+    Transformer eliminado = transformers.baja(posicion);
+    exportar_transformers();
+    return eliminado;
 }
 
 size_t BovedaTransformers::cantidad_transformers()

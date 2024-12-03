@@ -139,7 +139,7 @@ Grafo::~Grafo()
     delete algoritmo_camino_minimo;
 }
 
-size_t Grafo::peso_entre_aristas(size_t primero, size_t segundo)
+size_t Grafo::peso_entre_vertices(size_t primero, size_t segundo)
 {
     int peso = matriz_pesos(primero, segundo);
     return static_cast<size_t>(peso);

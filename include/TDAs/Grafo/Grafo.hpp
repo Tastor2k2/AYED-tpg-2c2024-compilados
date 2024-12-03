@@ -80,7 +80,7 @@ public:
 
     ~Grafo();
 
-    size_t peso_entre_aristas(size_t primero, size_t segundo);
+    size_t peso_entre_vertices(size_t primero, size_t segundo);
 };
 
 #endif
