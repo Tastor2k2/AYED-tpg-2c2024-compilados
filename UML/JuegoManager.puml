@@ -1,0 +1,36 @@
+@startuml
+
+class JuegoManager {
+}
+
+class ExcepcionJuegoManager {
+}
+
+class BovedaCristales {
+}
+
+class BovedaManager {
+}
+
+class TransformersManager {
+}
+
+class Cristal {
+}
+
+class Combate{
+}
+
+class Heap<T> {
+}
+
+JuegoManager ..> ExcepcionJuegoManager
+JuegoManager ..> BovedaCristales
+JuegoManager ..> BovedaManager
+JuegoManager ..> TransformersManager
+JuegoManager ..> Cristal
+JuegoManager ..> Combate
+JuegoManager ..> Heap
+BovedaManager *--> BovedaCristales
+
+@enduml
