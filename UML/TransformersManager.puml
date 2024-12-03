@@ -1,0 +1,15 @@
+@startuml
+
+class TransformersManager {
+}
+
+class Transformer {
+}
+
+class BovedaTransformers {
+}
+
+TransformersManager ..> Transformer
+TransformersManager ..> BovedaTransformers
+
+@enduml
