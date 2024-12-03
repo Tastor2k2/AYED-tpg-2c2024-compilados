@@ -45,7 +45,24 @@
      al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que ambas operaciones ocurren en 𝑂(1) al añadir un nuevo 
      nodo al final o al eliminar el primer nodo.
    - El método Alta() agrega el dato al final de de la cola y Baja() elimina el primer elemento de la cola. Para que esto funcione la cola no debe estar vacía.
-7. // COMPLETAR //
+7. DIJKSTRA: Elegimos usar Dijkstra porque este algoritmo encuentra el camino de menor coste desde un nodo inicial fijo a los demás nodos en un grafo. En cambio, el algoritmo de Floyd-Warshall calcula el camino de menor coste entre todos los pares de nodos del grafo. 
+Dado que el programa requiere encontrar el camino mínimo desde un nodo inicial específico hasta un nodo destino, no solo no es relevante e innecesario obtener información sobre los caminos mínimos entre otros nodos intermedios sino que es ineficiente ya que implica una mayor complejidad algorítmica. Por estas razones, Dijkstra resulta ser la opción más eficiente y adecuada.
+Explicación del Dijkstra: 
+El algoritmo de Dijkstra se utiliza para encontrar el camino más corto entre un nodo de origen y un nodo destino. Su principal objetivo es optimizar el costo buscando una ruta de costo mínimo.
+Utiliza la matriz de adyacencia y la matriz de pesos del grafo para identificar las conexiones entre vértices y sus respectivos costos.
+Utiliza tres vectores principales:
+Visitados: Es un vector que indica con true o false si un vértice ha sido visitado.
+Distancias: Almacena las distancias desde el nodo inicial a los demás nodos, actualizándolas a medida que se encuentra un camino más corto.
+Predecesores: Registra los nodos anteriores en el camino más corto, permitiendo reconstruir la ruta al final.
+Proceso:
+Se asigna una distancia inicial de 0 al nodo de origen y una distancia infinita a todos los demás nodos.
+Se marca al nodo de origen como visitado. Se inicia con nodo origen
+Se busca el nodo vecino al nodo actual con la menor distancia, se asigna como nuevo nodo actual.
+Si se encuentra un camino más corto desde nodo actual (teniendo en cuenta la distancia acumulada) hacia un vecino, se actualiza su coste en el vector de distancias y se guarda el nodo actual como el predecesor.
+Luego se elige el nodo vecino no visitado del nodo actual con el menor coste y se lo asigna como el nuevo nodo actual.
+El proceso se repite hasta que se visita el nodo destino o ya no quedan nodos accesibles que no hayan sido visitados.
+En el vector predecesores se encuentra la información necesaria para reconstruir el camino más corto desde el nodo de origen hasta el nodo destino.
+
 
 ## Compilación
 
