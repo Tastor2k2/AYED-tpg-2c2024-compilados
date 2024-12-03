@@ -43,7 +43,11 @@
    - Se implementa mediante una lista enlazada, donde cada elemento (nodo) contiene un dato y un puntero al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que 
      ambas operaciones ocurren en 𝑂(1) al añadir un nuevo nodo al final o al eliminar el primer nodo.
    - El método Alta() agrega el dato al final de de la cola y Baja() elimina el primer elemento de la cola. Para que esto funcione la cola no debe estar vacía.
-6. DIJKSTRA: Elegimos usar Dijkstra porque este algoritmo encuentra el camino de menor coste desde un nodo inicial fijo a los demás nodos en un grafo. En cambio, el algoritmo de Floyd-Warshall calcula el camino de menor coste entre todos los pares de nodos del grafo. 
+6. Implementación de Pila:
+   - El constructor inicia la cantidad de datos en 0 y asigna que ultimo nodo apunta a nullptr.
+   - El destructor va dando de baja el ultimo nodo mientras la pila no esté vacía aprovechando la implementación del método baja.
+   - Baja elimina el ultimo nodo y devuelve el elemento eliminado. Se asegura de limpiar memoria del nodo dado de baja (el último) y actualizar el nuevo ultimo nodo.
+7. DIJKSTRA: Elegimos usar Dijkstra porque este algoritmo encuentra el camino de menor coste desde un nodo inicial fijo a los demás nodos en un grafo. En cambio, el algoritmo de Floyd-Warshall calcula el camino de menor coste entre todos los pares de nodos del grafo. 
 Dado que el programa requiere encontrar el camino mínimo desde un nodo inicial específico hasta un nodo destino, no solo no es relevante e innecesario obtener información sobre los caminos mínimos entre otros nodos intermedios sino que es ineficiente ya que implica una mayor complejidad algorítmica. Por estas razones, Dijkstra resulta ser la opción más eficiente y adecuada.
 
    - Explicación del Dijkstra: 
