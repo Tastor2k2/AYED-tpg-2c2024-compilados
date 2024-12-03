@@ -51,29 +51,27 @@ void TransformersManager::aniadir_transformer()
   Faccion faccion = static_cast<Faccion>(faccion_num);
 
   std::cout << faccion;
-
+  bool es_autobot = faccion == AUTOBOT;
   Vehiculo vehiculo;
-  size_t vehiculo_num;
-  std::cout << "\nIngrese el vehiculo:";
-  if (faccion == AUTOBOT)
-  {
-    // implementar loop
-    std::cout << "\n0- Auto";
-    std::cout << "\n1- Camion";
-    std::cout << "\n- ";
-    std::cin >> vehiculo_num;
-    vehiculo = static_cast<Vehiculo>(vehiculo_num < 2 ? vehiculo_num : 0);
+  int vehiculo_num = -1;
+  while (vehiculo_num < 0 || vehiculo_num > 1) {
+    std::cout << "\nIngrese el vehiculo:";
+    if (es_autobot)
+    {
+        std::cout << "\n0- Auto";
+        std::cout << "\n1- Camion";
+        std::cout << "\n- ";
+        std::cin >> vehiculo_num;
+    }
+    else
+    {
+      std::cout << "\n0- Tanque";
+      std::cout << "\n1- Avion";
+      std::cout << "\n- ";
+      std::cin >> vehiculo_num;
+    }
   }
-  else
-  {
-    // implementar loop
-    std::cout << "\n0- Tanque";
-    std::cout << "\n1- Avion";
-    std::cout << "\n- ";
-    std::cin >> vehiculo_num;
-    vehiculo = static_cast<Vehiculo>(vehiculo_num < 2 ? vehiculo_num + 2 : 2);
-  }
-
+  vehiculo = static_cast<Vehiculo>(es_autobot ? vehiculo_num : vehiculo_num + 2);
   Transformer transformer = Transformer(nombre, fuerza, defensa, velocidad, faccion, vehiculo, false);
   boveda_transformers.almacenar_transformer(transformer);
 }
