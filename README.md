@@ -41,9 +41,8 @@
     estructura del árbol. Luego, se "ordena hacia abajo" intercambiándolo con el hijo más prometedor (el mayor o menor, dependiendo del tipo de heap) hasta que se restaure la propiedad. Este proceso 
     también tiene complejidad 𝑂(log𝑛) y asegura que el árbol conserve su estructura de heap binario completo.
 5. Implementacion de Cola:
-   - La estructura de datos Cola es una abstracción que sigue el principio FIFO (First In, First Out). Se implementa mediante una lista enlazada, donde cada elemento (nodo) contiene un dato y un puntero 
-     al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que ambas operaciones ocurren en 𝑂(1) al añadir un nuevo 
-     nodo al final o al eliminar el primer nodo.
+   - Se implementa mediante una lista enlazada, donde cada elemento (nodo) contiene un dato y un puntero al siguiente nodo en la cola. Esta implementación tiene varias ventajas, como la eficiencia en la inserción y eliminación de elementos, ya que 
+     ambas operaciones ocurren en 𝑂(1) al añadir un nuevo nodo al final o al eliminar el primer nodo.
    - El método Alta() agrega el dato al final de de la cola y Baja() elimina el primer elemento de la cola. Para que esto funcione la cola no debe estar vacía.
 6. DIJKSTRA: Elegimos usar Dijkstra porque este algoritmo encuentra el camino de menor coste desde un nodo inicial fijo a los demás nodos en un grafo. En cambio, el algoritmo de Floyd-Warshall calcula el camino de menor coste entre todos los pares de nodos del grafo. 
 Dado que el programa requiere encontrar el camino mínimo desde un nodo inicial específico hasta un nodo destino, no solo no es relevante e innecesario obtener información sobre los caminos mínimos entre otros nodos intermedios sino que es ineficiente ya que implica una mayor complejidad algorítmica. Por estas razones, Dijkstra resulta ser la opción más eficiente y adecuada.
