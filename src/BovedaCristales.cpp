@@ -96,7 +96,7 @@ void BovedaCristales::exportar_cristal(std::ofstream &archivo, Cristal cristal)
 
 void BovedaCristales::exportar_cristales(std::string ruta)
 {
-  std::ofstream archivo(ruta + ".csv");
+  std::ofstream archivo("archivos_csv/" + ruta + ".csv");
 
   if (archivo.is_open())
   {

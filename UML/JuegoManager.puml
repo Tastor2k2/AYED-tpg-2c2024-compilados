@@ -31,6 +31,5 @@ JuegoManager ..> TransformersManager
 JuegoManager ..> Cristal
 JuegoManager ..> Combate
 JuegoManager ..> Heap
-BovedaManager *--> BovedaCristales
 
 @enduml

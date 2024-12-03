@@ -8,11 +8,11 @@ class Megatron {
 class OptimusPrime {
 }
 
-class BovedaManager {
+class JuegoManager {
 }
 
 ChatManager ..> Megatron
 ChatManager ..> OptimusPrime
-ChatManager ..> BovedaManager
+ChatManager ..> JuegoManager
 
 @enduml

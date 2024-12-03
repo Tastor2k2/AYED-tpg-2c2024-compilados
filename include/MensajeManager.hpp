@@ -3,6 +3,7 @@
 
 #include <cctype>
 #include <string>
+
 class MensajeManager
 {
 public:

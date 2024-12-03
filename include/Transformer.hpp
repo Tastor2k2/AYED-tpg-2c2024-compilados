@@ -72,6 +72,7 @@ private:
     size_t limitar_valores(int calculo);
 
 public:
+
     // Constructor por defecto
     Transformer();
 
