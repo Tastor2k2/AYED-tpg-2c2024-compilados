@@ -71,7 +71,7 @@ En el vector predecesores se encuentra la información necesaria para reconstrui
 
 El proyecto se puede compilar manualmente por terminal con la siguiente línea:
 
-> g++ -I include main.cpp src/*.cpp -o main -Wall -Werror -Wconversion
+> g++ -o main -I include -I include/TDAs -I include/TDAs/Grafo src/*.cpp src/Grafo/*.cpp main.cpp -Wall -Werror -Wconversion
 
 O, alternativamente, con CMake, utilizando el archivo **CMakeLists.txt** presente en el directorio raíz.
 
