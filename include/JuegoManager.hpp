@@ -29,12 +29,20 @@ private:
     BovedaManager boveda_manager;
     TransformersManager transformers_manager;
 
+    // Pre: -
+    // Post: Muestra las opciones para elegir el personaje principal.
     void mostrar_opciones_personajes();
 
+    // Pre: -
+    // Post: Calcula el coste de energon entre el personaje principal y el transformer rival.
     size_t calcular_peso(Transformer rival);
 
+    // Pre: -
+    // Post: Genera el mapa de combates.
     Grafo generar_mapa_combates(Vector<Transformer> transformers);
 
+    // PRE: -
+    // POST: Devuelve un vector con los pesos de los vertices del camino.
     Vector<size_t> obtener_pesos_vertices(Grafo mapa_combates, Camino camino);
 
 public:
@@ -49,6 +57,8 @@ public:
     // POST: Mostrara las opciones de seleccion de personaje y guardara el seleccionado
     void elegir_personaje();
 
+    // Pre: -
+    // Post: Getter de cristal.
     std::optional<Cristal> obtener_cristal();
 
     // PRE: -
@@ -63,12 +73,20 @@ public:
     // POST: Muestra las opciones de la boveda y ejecuta la seleccion del usuario.
     void administrar_boveda_cristales(bool &continuar);
 
+    // Pre: -
+    // Post: Llama al metodo "administrar_transformers" de TransformersManager para administrar la boveda.
     void administrar_boveda_transformers(bool &continuar);
 
+    // Pre: -
+    // Post: Comienza el combate.
     void empezar_combate(OptimusPrime optimus, Megatron megatron);
 
+    // Pre: -
+    // Post: Devuelve el poder del personaje principal.
     size_t obtener_poder();
 
+    // Pre: -
+    // Post: Guarda el poder del personaje principal al cambiar su poder.
     void cambiar_poder(size_t poder);
 };
 

@@ -110,6 +110,8 @@ public:
     // Post: Muestra los detalles del transformer en consola.
     void mostrar_detalle();
 
+    // Pre: -
+    // Post: Getter del poder del transformer (suma de sus atributos).
     size_t obtener_poder();
 };
 

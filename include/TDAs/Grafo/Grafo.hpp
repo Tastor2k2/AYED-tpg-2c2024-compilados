@@ -78,8 +78,11 @@ public:
     // Operador de asignación.
     Grafo &operator=(const Grafo &grafo);
 
+    // Destructor
     ~Grafo();
 
+    // Pre: -
+    // Post: Getter de peso entre vertices (peso de aristas).
     size_t peso_entre_vertices(size_t primero, size_t segundo);
 };
 

@@ -33,8 +33,12 @@ private:
 
     std::optional<Cristal> cristal_seleccionado;
 
+    // Pre: -
+    // Post: Muestra el mapa del camino.
     void mostrar_mapa(Camino camino, Vector<size_t> pesos);
 
+    // Pre: -
+    // Post: Simula los combates del personaje principal.
     void simular_combate();
 
 public:
