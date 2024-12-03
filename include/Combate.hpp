@@ -61,6 +61,8 @@ private:
     void mostrar_resultado_combate(int resultado, bool es_final);
 
 public:
+
+    // Constructor
     Combate(Personaje personaje_seleccionado, std::optional<Cristal> cristal_seleccionado);
 
     // Pre: -
