@@ -66,12 +66,20 @@ public:
   // POST: Cambia el animo de Optimus Prime al valor del parametro recibido.
   void cambiar_animo(std::string animo);
 
+  // PRE: -
+  // POST: Devuelve el poder de Megatron.
   size_t obtener_poder();
 
-  void transformar();
-
+  // PRE: -
+  // POST: Devuelve las estadisticas.
   Estadisticas obtener_estadisticas();
 
+  // PRE: -
+  // POST: Invierte el valor de transformado.
+  void transformar();
+
+  // PRE: -
+  // POST: Devuelve el nombre de optimus en formato string.
   std::string obtener_personaje_string();
 };
 

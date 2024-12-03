@@ -89,6 +89,8 @@ private:
   // POST: Muestra las opciones e Interactua con Megatron.
   void interactuar_megatron();
 
+  // PRE: -
+  // POST: Muestra las opciones e Interactua con el personaje seleccionado.
   void seleccionar_personaje();
 
 public:

@@ -70,11 +70,15 @@ public:
   size_t obtener_poder();
 
   // PRE: -
-  // POST: Devuelve las estadisticas del cristal.
+  // POST: Devuelve las estadisticas.
   Estadisticas obtener_estadisticas();
 
+  // PRE: -
+  // POST: Invierte el valor de transformado.
   void transformar();
 
+  // PRE: -
+  // POST: Devuelve el nombre de personaje en formato string.
   std::string obtener_personaje_string();
 };
 
