@@ -9,6 +9,37 @@
 #include "TransformersManager.hpp"
 #include "Cristal.hpp"
 #include "Combate.hpp"
+#include "Heap.hpp"
+
+class ExcepcionJuegoManager : public std::runtime_error
+{
+public:
+    ExcepcionJuegoManager(std::string mensaje) : runtime_error(mensaje)
+    {
+    }
+
+    ExcepcionJuegoManager() : runtime_error("")
+    {
+    }
+};
+struct Partida
+{
+    std::string nombre;
+    std::string personaje;
+    size_t puntaje;
+
+    // Sobrecarga del operador <
+    bool operator<(const Partida &otra) const
+    {
+        return puntaje < otra.puntaje;
+    }
+
+    // Sobrecarga del operador >
+    bool operator>(const Partida &otra) const
+    {
+        return puntaje > otra.puntaje;
+    }
+};
 
 class JuegoManager
 {
@@ -27,6 +58,8 @@ private:
     BovedaManager boveda_manager;
     TransformersManager transformers_manager;
 
+    Heap<Partida> tablero_puntajes;
+
     // Pre: -
     // Post: Muestra las opciones para elegir el personaje principal.
     void mostrar_opciones_personajes();
@@ -43,6 +76,10 @@ private:
     // POST: Devuelve un vector con los pesos de los vertices del camino.
     Vector<size_t> obtener_pesos_vertices(Grafo mapa_combates, Camino camino);
 
+    // PRE: -
+    // POST: Guarda la partida en el tablero de puntajes.
+    void guardar_partida(size_t puntaje_final);
+
 public:
     // Constructor
     JuegoManager();
@@ -58,10 +95,6 @@ public:
     // Pre: -
     // Post: Getter de cristal.
     std::optional<Cristal> obtener_cristal();
-
-    // PRE: -
-    // POST: Devuelve el nombre del personaje seleccionado
-    std::string obtener_personaje_string();
 
     // PRE: -
     // POST: Devuelve el nombre del personaje seleccionado
@@ -86,6 +119,10 @@ public:
     // Pre: -
     // Post: Guarda el poder del personaje principal al cambiar su poder.
     void cambiar_poder(size_t poder);
+
+    // Pre: -
+    // Post: Muestra el tablero de puntajes.
+    void mostrar_puntajes();
 };
 
 #endif

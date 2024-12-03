@@ -150,3 +150,8 @@ Estadisticas OptimusPrime::obtener_estadisticas()
 {
   return {fuerza, defensa, velocidad};
 }
+
+std::string OptimusPrime::obtener_personaje_string()
+{
+  return "Optimus";
+}

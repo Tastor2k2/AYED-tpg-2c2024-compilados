@@ -20,7 +20,7 @@ class Combate
 
 private:
     static const size_t PUNTAJE_BATALLA = 50;
-    static const size_t PUNTAJE_EMPATE = 0;
+    static const size_t PUNTAJE_ALIADO = 25;
     static const size_t COSTE_TRANSFORMACION = 10;
 
     Personaje personaje;
@@ -39,13 +39,15 @@ private:
 
     // Pre: -
     // Post: Simula los combates del personaje principal.
-    void simular_combate();
+    void simular_combate(size_t posicion, Vector<Transformer> transformers);
+
+    int analisis_combate(Estadisticas estadisticas_jugador, Estadisticas estadisticas_enemigo);
 
 public:
     Combate(Personaje personaje_seleccionado, std::optional<Cristal> cristal_seleccionado);
 
     // Pre: -
-    // Post: Inicia el combate.
-    void iniciar_combate(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers);
+    // Post: Inicia el combate. Y retorna el puntaje final al finalizar.
+    size_t iniciar_combate(Camino camino, Vector<size_t> pesos, Vector<Transformer> transformers);
 };
 #endif

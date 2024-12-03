@@ -141,3 +141,8 @@ Estadisticas Megatron::obtener_estadisticas()
 {
   return {fuerza, defensa, velocidad};
 }
+
+std::string Megatron::obtener_personaje_string()
+{
+  return "Megatron";
+}

@@ -64,6 +64,9 @@ void ChatManager::selector_chat(int &opcion, bool &continuar)
   case 5:
     juego_manager.empezar_combate();
     break;
+  case 6:
+    juego_manager.mostrar_puntajes();
+    break;
   case 7:
     continuar = false;
     break;

@@ -71,6 +71,8 @@ public:
   void transformar();
 
   Estadisticas obtener_estadisticas();
+
+  std::string obtener_personaje_string();
 };
 
 #endif

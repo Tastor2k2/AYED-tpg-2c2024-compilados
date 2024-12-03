@@ -4,6 +4,7 @@ JuegoManager::JuegoManager()
 {
     poder_personaje = 0;
     personaje_seleccionado = OPTIMUS;
+    tablero_puntajes = Heap<Partida>(true);
 }
 
 void JuegoManager::mostrar_opciones_personajes()
@@ -21,17 +22,6 @@ void JuegoManager::pedir_nombre()
     std::cout << "\n|Bienvenido a Transformers Edicion Compilados inc.|";
     std::cout << "\nIngrese su nombre: ";
     std::getline(std::cin, nombre_usuario);
-}
-
-std::string JuegoManager::obtener_personaje_string()
-{
-    std::string nombre = "Megatron";
-    if (personaje_seleccionado == OPTIMUS)
-    {
-        nombre = "Optimus Prime";
-    }
-
-    return nombre;
 }
 
 Personaje JuegoManager::obtener_personaje()
@@ -196,5 +186,87 @@ void JuegoManager::empezar_combate()
     }
 
     Combate combate(personaje_seleccionado, cristal_seleccionado);
-    combate.iniciar_combate(camino, pesos, transformer_camino);
+    size_t puntaje_final = combate.iniciar_combate(camino, pesos, transformer_camino);
+    guardar_partida(puntaje_final);
+}
+
+void JuegoManager::guardar_partida(size_t puntaje_final)
+{
+    Partida nueva_partida;
+    nueva_partida.nombre = nombre_usuario;
+    nueva_partida.puntaje = puntaje_final;
+    nueva_partida.personaje = (personaje_seleccionado == OPTIMUS) ? "Optimus Prime" : "Megatron";
+
+    // Leer todas las partidas existentes del archivo y almacenarlas en el heap
+    std::ifstream archivo_lectura("archivos_csv/puntuaciones.csv");
+    if (archivo_lectura.is_open())
+    {
+        std::string linea;
+        while (std::getline(archivo_lectura, linea))
+        {
+            std::istringstream stream(linea);
+            std::string nombre, personaje, puntaje_str;
+
+            if (std::getline(stream, nombre, ',') &&
+                std::getline(stream, personaje, ',') &&
+                std::getline(stream, puntaje_str))
+            {
+                Partida partida_leida;
+                partida_leida.nombre = nombre;
+                partida_leida.personaje = personaje;
+                partida_leida.puntaje = std::stoul(puntaje_str);
+
+                tablero_puntajes.alta(partida_leida);
+            }
+        }
+        archivo_lectura.close();
+    }
+
+    tablero_puntajes.alta(nueva_partida);
+
+    // Sobrescribir el archivo con los datos ordenados
+    std::ofstream archivo_escritura("archivos_csv/puntuaciones.csv");
+    if (archivo_escritura.is_open())
+    {
+        size_t cant_puntajes = tablero_puntajes.tamanio();
+
+        for (size_t i = 0; i < cant_puntajes; i++)
+        {
+            Partida partida = tablero_puntajes.baja();
+
+            archivo_escritura << partida.nombre << ","
+                              << partida.personaje << ","
+                              << partida.puntaje << "\n";
+        }
+
+        archivo_escritura.close();
+    }
+}
+
+void JuegoManager::mostrar_puntajes()
+{
+    std::ifstream archivo("archivos_csv/puntuaciones.csv");
+    std::string linea;
+
+    if (!archivo.is_open())
+    {
+        throw ExcepcionJuegoManager("Error al abrir archivo");
+    }
+
+    std::cout << "\n###################################";
+    std::cout << "\nMostrar Puntajes";
+    std::cout << "\nNOMBRE | PERSONAJE | PUNTAJE";
+
+    std::cout << "\n--------------------------------";
+
+    while (getline(archivo, linea))
+    {
+        std::cout << "\n"
+                  << linea;
+    }
+
+    std::cout << "\n--------------------------------";
+    std::cout << "\n###################################";
+
+    archivo.close();
 }
